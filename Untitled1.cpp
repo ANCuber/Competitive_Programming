@@ -2,12 +2,13 @@
 using namespace std;
 
 int main() {
-    int q; cin>>q;
-    while(q--) {
-        int x, y, z; 
-        cin>>x>>y>>z;
-        cout<<-1<<'\n';
+    int t; cin>>t;
+    int n; cin>>n;
+    vector <int> ans(n);
+    for (int i = 0; i < n; ++i) {
+        string x;
+        cin.ignore();
+        getline(cin,x);
     }
-    
     return 0;
 }
