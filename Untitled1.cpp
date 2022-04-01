@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
+#include "lib2243.h"
 using namespace std;
 
-int main() {
-    int t; cin>>t;
-    return 0;
+string enter() {
+    return "cran";
 }
