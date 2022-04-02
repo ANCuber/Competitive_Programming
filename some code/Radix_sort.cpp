@@ -11,7 +11,7 @@ void radix_sort(vector <int> &arr) {
             int index = (i/now)%10;
             backet[index].push(i);
         }
-        int ctrl = 0;
+        int ctrl = 0;//index of arr
         for (int i = 0; i < 10; ++i) {
             while(!backet[i].empty()) {
                 arr[ctrl] = backet[i].front();
