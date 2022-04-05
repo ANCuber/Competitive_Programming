@@ -2,7 +2,8 @@
 using namespace std;
 
 int main() {
-    int t = 5;
-    while(t--) cout<<t<<' ';
-    cout<<t;
+    vector <int, greater<int> > v{5,4,2,1,3};
+    sort(v.begin(),v.end());
+    for(auto i : v) cout<<i<<' ';
+    return 0;
 }
