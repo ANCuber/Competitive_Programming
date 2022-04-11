@@ -16,6 +16,11 @@ void solve(vector <int> &arr,int n) {
         arr[1] = 1;
         arr[2] = 2;
         return;
+    } else if (n == 4) {
+        arr[0] = 1;
+        arr[1] = 3;
+        arr[2] = 2;
+        arr[3] = 4;
     }
     int subsize = n-n/2;
     vector <int> subarr(subsize,0);

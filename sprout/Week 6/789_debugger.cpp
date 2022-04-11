@@ -12,7 +12,7 @@ int main () {
     vector <int> recd(n,0);
     for (int i = 0; i < n; ++i) {
         if(++recd[arr[i]-1]>1) {
-            cout<<"fail"<<endl;
+            cout<<"fail nember:"<<arr[i]<<endl;
             return 0;
         }
     }
@@ -21,7 +21,7 @@ int main () {
         for (int j = i+1; j <= n-2; j++) {
             for (int k = j+1; k <= n-1; k++) {
                 if (arr[k]-arr[j] == arr[j]-arr[i]) {
-                    cout<<"fail:";
+                    cout<<"fail array:";
                     cout<<arr[i]<<' '<<arr[j]<<' '<<arr[k]<<endl;
                     ctrl = 1;
                 }
