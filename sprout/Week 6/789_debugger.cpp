@@ -11,7 +11,7 @@ int main () {
     }
     vector <int> recd(n,0);
     for (int i = 0; i < n; ++i) {
-        if(++recd[arr[i]-1]>1) {
+        if(++recd[arr[i]-1]>1 || arr[i] > n || arr[i] < 1) {
             cout<<"fail nember:"<<arr[i]<<endl;
             return 0;
         }
