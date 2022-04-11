@@ -1,2 +1,3 @@
- record[arr[i]]++;
-        if (record[arr[i]] > 1) cout<<"fail"<<endl;
+cout<<"# "<<n<<":";
+    for (auto i : arr) cout<<i<<' ';
+    cout<<endl<<endl;

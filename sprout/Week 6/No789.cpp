@@ -17,7 +17,7 @@ void solve(vector <int> &arr,int n) {
         arr[2] = 2;
         return;
     }
-    int subsize = n-(n>>1);
+    int subsize = n-n/2;
     vector <int> subarr(subsize,0);
     solve(subarr,subsize);
     for (int i = 0; i < subsize; i++) {
@@ -30,8 +30,10 @@ void solve(vector <int> &arr,int n) {
             continue;
         }
         arr[i] = subarr[id]*2;
-
     }
+    /* cout<<"# "<<n<<":";
+    for (auto i : arr) cout<<i<<' ';
+    cout<<endl<<endl; */
 }
 
 int main() {
@@ -41,11 +43,9 @@ int main() {
     solve(arr,n);
     vector <int> x(n,0);
     for (int i = 0; i < n; ++i) {
-        if (i) cout<<' ';
         cout<<arr[i];
-        x[arr[i]]++;
-        if (x[arr[i]] > 1) cout<<"fail"<<endl;
+        if (i == n-1) cout<<'\n';
+        else cout<<' ';
     }
-    cout<<endl;
     return 0;
 }
