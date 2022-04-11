@@ -1,2 +1,2 @@
-solve(arr,l,mid);
-    solve(arr,mid+1,r);
+ record[arr[i]]++;
+        if (record[arr[i]] > 1) cout<<"fail"<<endl;
