@@ -4,14 +4,20 @@ using namespace std;
 #define endl '\n'
 
 struct Dot {
-    int x;
-    int y;
+    long long x;
+    long long y;
+    bool operator<(Dot b) {
+        if (x == b.x) return y < b.y;
+        return x < b.x;
+    }
 };
 
-int min_d = 1e9;
+long long min_d = 1e12;
 
-void solve(int l, int r) {
-    int mid = l+(r-l)/2;
+void solve(int l, int r, vector <Dot> &dots) {
+    if (l == r) return;
+    int mid = (l+r)>>1;
+
 }
 
 int main() {
@@ -21,7 +27,8 @@ int main() {
     for (int i = 0; i < n; ++i) {
         cin>>dots[i].x>>dots[i].y;
     }
-    solve(-1e9,1e9);
+    sort(dots.begin(),dots.end());
+    solve(0,n,dots);
     cout<<min_d<<endl;
     return 0;
 }
