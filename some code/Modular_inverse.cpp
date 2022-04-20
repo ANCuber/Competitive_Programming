@@ -3,6 +3,7 @@ using namespace std;
 
 #define endl '\n'
 
+//(a,p) = 1
 //ax + py = 1, x is the modular inverse of a under the model of p
 int exgcd(int a, int p, int am, int an, int pm, int pn) {
     if (p == 0) return am;
