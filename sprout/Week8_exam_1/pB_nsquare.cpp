@@ -23,7 +23,7 @@ int main() {
             if (rever) {
                 int i = arr.size()-1;
                 int id = arr.size()-1;
-                while(i>=mid) {
+                while(i>mid) {
                     if (arr[i] != -1) i--;
                     id--;
                 }
@@ -31,7 +31,7 @@ int main() {
             } else {
                 int i = 0;
                 int id = 0;
-                while(i<=mid) {
+                while(i<mid) {
                     if (arr[i] != -1) i++;
                     id++;
                 }
@@ -44,6 +44,17 @@ int main() {
         } else {
             rever = 1-rever;
         }
+
+         if (rever) {
+        for (int i = arr.size()-1; i >= 0; --i) {
+            if (arr[i] != -1) cout<<arr[i]<<' ';
+        }
+    } else {
+        for (int i = 0; i < arr.size(); ++i) {
+            if (arr[i] != -1) cout<<arr[i]<<' ';
+        }
+    }
+
     }
     if (rever) {
         for (int i = arr.size()-1; i >= 0; --i) {
