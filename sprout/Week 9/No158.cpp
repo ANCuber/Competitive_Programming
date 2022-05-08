@@ -7,31 +7,33 @@ int main() {
     ios::sync_with_stdio(0), cin.tie(), cout.tie();
     int t; cin>>t;
     while(t--) {
-        int n, m; cin>>n>>m;
+        int n, m, k; cin>>n>>m>>k;
         int a[n], b[n];
-        int sum = 0;
         for (int i = 0; i < n; i++) {
             cin>>a[i]>>b[i];
-            sum += b[i];
         }
-        vector <int> dp(sum+1,2e9);
-        dp[b[0]] = a[0];
-        for (int i = 1; i < n; ++i) {
-            for (int j = sum; j >= 0; --j) {
-                if (j == b[i]) dp[j] = min(dp[j],a[i]);
-                if (b[i] <= j) {
-                    //cout<<'@'<<dp[j]<<' '<<dp[j-b[i]]+a[i]<<endl;
-                    dp[j] = min(dp[j],dp[j-b[i]]+a[i]);
-                } else {
-                    dp[j] = dp[j];
+        int dp[2][m+1][k+1];
+        for (int j = 0; j <= m; ++j) {
+            for (int h = 0; h <= k; ++h) {
+                dp[0][j][h] = 0;
+            }
+        }
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j <= m; ++j) {
+                for (int h = 0; h <= k; ++h) {
+                    if (j == 0 || h == 0) {
+                        dp[(i+1)%2][j][h] = 0;
+                        continue;
+                    }
+                    if (a[i] <= j && h >= 1) {
+                        dp[(i+1)%2][j][h] = max(dp[i%2][j][h],dp[i%2][j-a[i]][h-1]+b[i]);
+                    } else {
+                        dp[(i+1)%2][j][h] = dp[i%2][j][h];
+                    }
                 }
             }
         }
-        int ans = -1;
-        for (int i = 0; i <= sum; ++i) {
-            if (dp[i] <= m) ans = i;
-        }
-        cout<<ans<<endl;
+        cout<<dp[n%2][m][k]<<endl;
     }
     return 0;
 }
