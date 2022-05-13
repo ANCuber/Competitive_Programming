@@ -6,8 +6,10 @@ using namespace std;
 int main() {
     long long n, a, b, k;
     cin>>n>>a>>b>>k;
-    int dp[k+1];
-    for (int i = 0; i < k; ++i) {
+    vector <int> curway(n+1,0);
+    curway[a] = 1;
+    
+    for (int i = 1; i <= k; ++i) {
 
     }
 }
