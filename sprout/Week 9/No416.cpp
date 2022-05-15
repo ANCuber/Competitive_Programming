@@ -23,10 +23,10 @@ int main() {
         for (int j = 1; j <= n; ++j) {
             if (i > 0) {
                 if (j < b) {
-                    curway[j] = adder(presum[j+(b-j-1)/2][(i+1)%2]%mod,-adder(presum[j][(i+1)%2],-presum[j-1][(i+1)%2]));
+                    curway[j] = (presum[j+(b-j-1)/2][(i+1)%2]%mod-curway[j])%mod;
                 }
                 if (j > b) {
-                    curway[j] = adder(adder(presum[n][(i+1)%2],-presum[j+(b-j-1)/2][(i+1)%2]),-adder(presum[j][(i+1)%2],-presum[j-1][(i+1)%2]));
+                    curway[j] = (adder(presum[n][(i+1)%2],-presum[j+(b-j-1)/2][(i+1)%2])-curway[j])%mod;
                 }
                 if (j == b) curway[j] = 0;
             }
