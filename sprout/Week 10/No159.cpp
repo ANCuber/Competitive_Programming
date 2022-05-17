@@ -3,45 +3,62 @@ using namespace std;
 
 #define endl '\n'
 
+string output[] = {"No","Yes"};
+
 int main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     int t; cin>>t;
     while(t--) {
         int n, m;
         cin>>n>>m;
-        int coin[n][2];//c,k
-        vector <int> item(1005);
-        int sum = 0;
-        for (int i = 0; i < n; ++i) {
-            cin>>coin[i][0]>>coin[i][1];
-            int v = coin[i][0];
-            int k = coin[i][1];
-            int base = 1;
-            while (k) {
-                if (base <= k) k -= base;
-                else {
-                    item[sum++] = k*v;
-                    break;
-                }
-                item[sum++] = v*base;
-                base<<=1;
-            }
+        vector <int> v(n+5);//$
+        vector <int> k(n+5);//amount
+        for (int i = 1; i <= n; ++i) {
+            cin>>v[i]>>k[i];
         }
-        int dp[2][m+1];
-        for (int i = 0; i < sum; ++i) {
-            for (int j = 0; j <= m; j++) {
-                if (i == 0) {
-                    if (j == item[0]) dp[0][j] = 1;
-                    else dp[0][j] = 0;
+        bool dp[2][m+1] = {0};
+        fill(dp[0],dp[0]+m+1,0);
+        dp[0][0] = 1;
+        for (int i = 1; i <= n; ++i) {
+            int arr[v[i]];
+            fill(arr,arr+v[i],-1);
+            for (int j = 0; j <= m; ++j) {
+                if (dp[(i+1)%2][j]) {
+                    dp[i%2][j] = true;
+                    arr[j%v[i]] = j;
                 } else {
-                    if (j == item[i]) dp[i%2][j] = 1;
-                    else if (j > item[i]) dp[i%2][j] = max(dp[(i+1)%2][j],dp[(i+1)%2][j-item[i]]);
-                    else dp[i%2][j] = dp[(i+1)%2][j];
+                    if (arr[j%v[i]] < 0 || arr[j%v[i]] < j-v[i]*k[i]) {
+                        dp[i%2][j] = false;
+                    } else {
+                        dp[i%2][j] = true;
+                    }
                 }
             }
         }
-        if (dp[0][m] == 1 || dp[1][m] == 1) cout<<"Yes"<<endl;
-        else cout<<"No"<<endl;
+        cout<<output[dp[n%2][m]]<<endl;
     }
     return 0;
 }
+
+/* 
+2
+2 11
+2 2
+3 3
+2 1
+2 3
+3 2 
+*/
+
+//TLE method(original)
+//O(NMK)
+/*  for (int i = 1; i <= n; ++i) {
+        for (int j = 0; j <= m; ++j) {
+            bool ans = false;
+            for (int h = 0; h <= k[i]; ++h) {
+                if (v[i]*h > j) break;
+                ans = ans|dp[(i+1)%2][j-h*v[i]];
+            }
+            dp[i%2][j] = ans;
+        }
+    } */
