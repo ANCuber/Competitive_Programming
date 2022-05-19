@@ -18,7 +18,7 @@ tuple<ll,ll,ll> coeff(int x1, int y1, int x2, int y2) {
 
 int solve(vector <Dot> &p, vector <int> &dp,int cur, int counter) {
     if(dp[cur]) return dp[cur];
-
+    
 }
 
 int main() {
