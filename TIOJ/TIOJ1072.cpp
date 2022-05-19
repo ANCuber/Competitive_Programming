@@ -12,9 +12,9 @@ struct infor {
 
 int main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    int t; cin>>t;
     int n;
-    while(cin>>n){
+    while(cin>>n) {
+        if (!n) break;
         vector <infor> arr(n);
         for (int i = 0; i < n; ++i) {
             cin>>arr[i].c>>arr[i].e;
