@@ -18,32 +18,31 @@ tuple<ll,ll,ll> coeff(int x1, int y1, int x2, int y2) {
     return {del,del_a,del_b};
 }
 
-int solve(vector <Dot> &p, vector <int> &dp,int cur, int counter, int rest) {
-    if (!cur) return counter;
+int solve(vector <Dot> &p, vector <int> &dp,int cur) {
+    //cout<<"pass#"<<counter<<' '<<rest<<endl;
+    if (!cur) return 0;
     if (dp[cur]) return dp[cur];
-    int ans = rest+counter;
-    for (int i = 0; i < n-1; ++i) {
-        if (!(cur&(1<<i))) continue;
-        for (int j = i+1; j < n; ++j) {
-            if (!(cur&(1<<j))) continue;
-            tuple<ll,ll,ll> i_sol = coeff(p[i].x,p[i].y,p[j].x,p[j].y);
-            if (get<0>(i_sol)*get<1>(i_sol) >= 0) continue;
-            int ctrl = cur;
-            int num = 2;
-            for (int k = 0; k < n; ++k) {
-                if (!(cur&(1<<k)) || k == i || k == j) continue;
-                tuple<ll,ll,ll> k_sol = coeff(p[i].x,p[i].y,p[k].x,p[k].y);
-                if (get<0>(i_sol)*get<1>(k_sol) == get<1>(i_sol)*get<0>(k_sol)
-                    && get<0>(i_sol)*get<2>(k_sol) == get<2>(i_sol)*get<0>(k_sol)) {
-                    ctrl -= (1<<k);
-                    num++;
-                }
+    if (cur - (cur&-cur) == 0) return 1;
+    int ans = INT_MAX;
+    int start = __lg(cur&-cur);//first dot
+    for (int i = start+1; i < n; ++i) {//second dot
+        if (!((cur>>i)&1)) continue;
+        tuple<ll,ll,ll> s_sol = coeff(p[start].x,p[start].y,p[i].x,p[i].y);
+        if (get<0>(s_sol)*get<1>(s_sol) >= 0) continue;
+        int ctrl = cur;// find two dots
+        ctrl -= (1<<i);
+        ctrl -= (cur&-cur);
+        for (int j = 0; j < n; ++j) {//others
+            if (!((ctrl>>j)&1) || j == i || j == start) continue;
+            tuple<ll,ll,ll> k_sol = coeff(p[start].x,p[start].y,p[j].x,p[j].y);
+            if (get<0>(s_sol)*get<1>(k_sol) == get<0>(k_sol)*get<1>(s_sol)
+            && get<0>(s_sol)*get<2>(k_sol) == get<0>(k_sol)*get<2>(s_sol)) {
+                ctrl -= (1<<j);
             }
-            ctrl -= (1<<i);
-            ctrl -= (1<<j);
-            ans = min(ans,solve(p,dp,ctrl,counter+1,rest-num));
         }
+        ans = min(ans,solve(p,dp,ctrl)+1);
     }
+    ans = min(ans,solve(p,dp,cur-(cur&-cur))+1);
     dp[cur] = ans;
     return ans;
 }
@@ -53,14 +52,14 @@ int main() {
     int t; cin>>t;
     while(t--) {
         cin>>n;
+        vector <int> dp(1<<n,0);
+        vector <Dot> pig(n);
+        for (int i = 0; i < n; ++i) cin>>pig[i].x>>pig[i].y;
         if (n == 1) {
             cout<<1<<endl;
             continue;
         }
-        vector <int> dp(1<<n,0);
-        vector <Dot> pig(n);
-        for (int i = 0; i < n; ++i) cin>>pig[i].x>>pig[i].y;
-        cout<<solve(pig,dp,(1<<n)-1,0,n)<<endl;
+        cout<<solve(pig,dp,(1<<n)-1)<<endl;
     }
     return 0;
 }
