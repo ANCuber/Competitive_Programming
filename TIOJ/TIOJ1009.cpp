@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
 #define endl '\n'
@@ -15,7 +16,11 @@ int main() {
     if (at > bt) bt += 3600*24;
     int ans = bt-at;
     for (int i = 0; i < 3; ++i) {
-        
+        int s = ans/x[i];
+        else if (s < 10) cout<<0<<s;
+        else cout<<s;
+        if (i != 2)cout<<':';
+        ans %= x[i];
     }
     return 0;
 }
