@@ -6,18 +6,20 @@ using namespace std;
 #define ii pair<int, int>
 
 int main() {
-    int v, e; cin>>v>>e;
+    int n, m; cin>>n>>m;
     int A, B; cin>>A>>B;
-    vector <vector <int> > graph(v+1);
-    for (int i = 0; i < e; ++i) {
+    vector <vector <int> > graph(n+1);
+    for (int i = 0; i < m; ++i) {
         int x, y; cin>>x>>y;
         graph[x].push_back(y);
         graph[y].push_back(x);
     }
-    vector <int> dis(v+1,1e9);
-    vector <bool> visited(v+1,0);
+    vector <int> dis(n+1,1e9);
     dis[A] = 0;
     int p = A;
+    for (int i = 0;i < n; ++i) {
+       
+    }
     while (true) {
 
     }
