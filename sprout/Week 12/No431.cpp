@@ -18,10 +18,10 @@ int main() {
         back[b].emplace_back(a,w);
     }
     vector <ll> go(n+1,1e18);
-    //vector <bool> vis1(n+1,0);
+    vector <bool> vis1(n+1,0);
     go[1] = 0;
     vector <ll> re(n+1,1e18);
-    //vector <bool> vis2(n+1,0);
+    vector <bool> vis2(n+1,0);
     re[n] = 0;
     
     pq1.push({0,1});
@@ -30,6 +30,8 @@ int main() {
     while (!pq1.empty()) {
         int cur = pq1.top().second;
         pq1.pop();
+        if (vis1[cur]) continue;
+        vis1[cur] = true;
 
         for (auto i : graph[cur]) {
             if (go[i.first] > go[cur]+i.second) {
@@ -41,6 +43,8 @@ int main() {
     while (!pq2.empty()) {
         int cur = pq2.top().second;
         pq2.pop();
+        if (vis2[cur]) continue;
+        vis2[cur] = true;
 
         for (auto i : back[cur]) {
             if (re[i.first] > re[cur]+i.second) {
