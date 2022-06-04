@@ -24,10 +24,13 @@ void dfs(int len,vector <char> str) {
         str.push_back(letter[i]);
         if (len > 1) dfs(len-1,str);
         else {
-            for (auto i : str) {
-                cout<<i;
+            unsigned ll hashval = hs(str);
+            if (hashval == 673) {
+                for (auto i : str) {
+                    cout<<i;
+                }
+                cout<<endl;
             }
-            cout<<endl;
         }
         str.pop_back();
     }
@@ -41,8 +44,15 @@ int main() {
         arr[i] = arr[i-1]*c;
     }
     vector <char> str;
+    /* for (int i = 0; i < 4; ++i) {
+        char x; cin>>x;
+        str.push_back(x);
+    }
+    cout<<hs(str)<<endl;
+    return 0; */
     for (int i = 1; i <= 6; ++i) {
         dfs(i,str);
     }
+    cout<<"done"<<endl;
     return 0;
 }
