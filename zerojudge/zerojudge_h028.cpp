@@ -15,6 +15,29 @@ int main() {
     for (int i = 1; i <= n; ++i) cin>>h[i];
     c[n+1] = l;
     h[n+1] = 2e9;
-
-
+    stack <int> stk;
+    stk.push(0);
+    ll ans = 0;
+    int maxh = 0;
+    for (int i = 1; i <= n; ++i) {
+        while(!stk.empty() && c[stk.top()] + h[stk.top()] <= c[i]) {
+            ans++;
+            maxh = max(maxh,h[stk.top()]);
+            stk.pop();
+        }
+        if (c[i]-h[i] >= c[stk.top()] || c[i]+h[i] <= c[i+1]) {
+            ans++;
+            maxh = max(maxh,h[i]);
+        } else {
+            stk.push(i);
+        }
+    }
+    while(!stk.empty() && c[stk.top()]+h[stk.top()] <= l) {
+        ans++;
+        maxh = max(maxh,h[stk.top()]);
+        stk.pop();
+    }
+    cout<<ans<<endl;
+    cout<<maxh<<endl;
+    return 0;
 }
