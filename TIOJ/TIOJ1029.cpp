@@ -4,20 +4,15 @@ using namespace std;
 #define ll long long
 #define endl '\n'
 
-vector <int> numbers;
-int l, r;
-int ans[2] = {0,0};
-
-int pick() {
-
-}
+int dp[1005][1005];
 
 int main() {
     int n; cin>>n;
-    numbers.resize(n);
-    for (int i = 0; i < n; ++i) {
-        cin>>numbers[i];
+    int s = 0;
+    for (int i = 2; i <= n-1; ++i) {
+        cin>>dp[i][i];
+        s += dp[i][i];
+        
     }
-    l = 0, r = n-1;
-
+    
 }
