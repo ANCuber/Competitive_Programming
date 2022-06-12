@@ -16,11 +16,11 @@ vector <ll> arr;
 vector <Nd> seg;
 ll qans = -1e12;
 
-inline void merge(Nd &New, Nd a, Nd b) {
-    New.sum = a.sum+b.sum;
-    New.maxsum = max({a.maxsum,b.maxsum,a.rmax+b.lmax});
-    New.lmax = max(a.lmax,a.sum+b.lmax);
-    New.rmax = max(b.rmax,b.sum+a.rmax);
+inline void merge(Nd &New, Nd lt, Nd rt) {
+    New.sum = lt.sum+rt.sum;
+    New.maxsum = max({lt.maxsum,rt.maxsum,lt.rmax+rt.lmax});
+    New.lmax = max(lt.lmax,lt.sum+rt.lmax);
+    New.rmax = max(rt.rmax,rt.sum+lt.rmax);
 }
 
 void init(int l, int r, int node) {
@@ -38,17 +38,27 @@ void init(int l, int r, int node) {
 Nd query(int ql, int qr, int l, int r, int node) {
     if (ql <= l && r <= qr) return seg[node];
     int mid = (l+r)>>1;
-    
+    if (qr <= mid) return query(ql,qr,l,mid,node<<1);
+    if (ql > mid) return query(ql,qr,mid+1,r,(node<<1)|1);
+    Nd lt, rt, ret;
+    lt = query(ql,qr,l,mid,node<<1);
+    rt = query(ql,qr,mid+1,r,(node<<1)|1);
+    merge(ret,lt,rt);
+    return ret;
 }
 
 int main() {
+    ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     int n, q; cin>>n>>q;
     arr.resize(n+1);
     seg.resize(n<<2);
     for (int i = 1; i <= n; ++i) cin>>arr[i];
-    init(1,n,1);    
+    init(1,n,1);
     while(q--) {
         int ql, qr; cin>>ql>>qr;
-
+        Nd cur = query(ql,qr,1,n,1);
+        cur.maxsum = max(0LL,cur.maxsum);
+        cout<<cur.maxsum<<endl;
     }
+    return 0;
 }
