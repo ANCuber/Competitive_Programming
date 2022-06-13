@@ -5,9 +5,9 @@ using namespace std;
 #define endl '\n'
 
 struct Nd{
-    int lt = 0;
-    int val = 1;
-    int count;
+    int lat = 0;
+    int val;
+    int ori;
     bool reset = 0;
 };
 
@@ -15,16 +15,15 @@ vector <Nd> seg;
 
 int init(int l, int r, int node) {
     if (l == r) {
-        seg[node].count = 1;
+        seg[node].val = seg[node].ori = 1;
         return 1;
     }
     int mid = (l+r)/2;
-    seg[node].count = init(l,mid,node<<1)+init(mid+1,r,(node<<1)|1);
-    return seg[node].count;
+    return seg[node].val = seg[node].ori = init(l,mid,node<<1)+init(mid+1,r,(node<<1)|1);
 }
 
 int turn(int ql, int qr, int l, int r, int node) {
-
+    
 }
 
 int reset(int ql, int qr, int l, int r, int node) {
