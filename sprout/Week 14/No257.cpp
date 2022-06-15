@@ -25,32 +25,20 @@ void init(int l, int r, int node) {
     }
     int mid = (l+r)/2;
     init(l,mid,node<<1);
-    init(mid+1,r,(node<<1)|1);
-    seg[node].c1 = seg[node<<1].c1+seg[(node<<1)|1].c1;
+    init(mid+1,r,node<<1|1);
+    seg[node].c1 = seg[node<<1].c1+seg[node<<1|1].c1;
     return;
 }
 
 Nd turn(int ql, int qr, int l, int r, int node) {
-    if (ql <= l && r <= qr) {
-        swap(seg[node].c1,seg[node].c2);
-        swap(seg[node].c1,seg[node].c3);
-        seg[node].lazt++;
-        return seg[node];
-    }
-    int mid = (l+r)>>1;
-    if (qr <= mid) return turn(ql,qr,l,mid,node<<1);
-    if (ql > mid) return turn(ql,qr,mid+1,r,(node<<1)|1);
-    Merge(seg[node],turn(ql,qr,l,mid,node<<1),turn(ql,qr,mid+1,r,(node<<1)|1));
-    return seg[node];
+    
 }
 
-int reset(int ql, int qr, int l, int r, int node) {
-    if (ql <= l && r <= qr) {
-        
-    }
+Nd reset(int ql, int qr, int l, int r, int node) {
+    
 }
 
-int query(int ql, int qr, int l, int r, int node) {
+Nd query(int ql, int qr, int l, int r, int node) {
 
 }
 
