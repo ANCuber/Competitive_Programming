@@ -9,7 +9,9 @@ int main() {
     while(true) {
         scanf("%d",&n);
         if (!n) break;
+        int a;
         for (int i = 1; i <= n; ++i) {
+            scanf("%d",&a);
             if (i-1) printf("%c",' ');
             printf("%d",i);
         }
