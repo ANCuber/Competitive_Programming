@@ -6,7 +6,6 @@ using namespace std;
 
 struct Place{
     int x, y;
-    int turn;
 };
 
 int dx[4] = {0,0,1,-1};
@@ -28,28 +27,24 @@ int main() {
         }
         Place s;
         s.x = s.y = 1;
-        s.turn = 0;
+        vis[1][1] = 0;
         q.push(s);
         int ctrl = 1;
         while(!q.empty() && ctrl) {
             Place cur = q.front();
             q.pop();
-            vis[cur.x][cur.y] = 1;
             for (int i = 0; i < 4; ++i) {
                 if (abs(graph[cur.x][cur.y]-graph[cur.x+dx[i]][cur.y+dy[i]]) <= 5
                 && !vis[cur.x+dx[i]][cur.y+dy[i]]) {
-                    if (cur.x+dx[i] == m && cur.y+dy[i] == n) {
-                        cout<<cur.turn+1<<endl;
-                        ctrl = 0;
-                        break;
-                    }
                     Place nex;
                     nex.x = cur.x+dx[i];
                     nex.y = cur.y+dy[i];
-                    nex.turn = cur.turn+1;
                     q.push(nex);
+                    vis[cur.x+dx[i]][cur.y+dy[i]] = vis[cur.x][cur.y]+1;
                 }
             }
+            //cout<<q.size()<<endl;
         }
+        cout<<vis[m][n]<<endl;
     }
 }
