@@ -8,19 +8,14 @@ int const mod=1e9+7;
 int dp[3][maxn];
 int n,m;
 
+int c(int m, int n) {
+    if (n == 0 || n == m) return 1;
+    return (c(m-1,n)%mod+c(m-1,n-1)%mod)%mod;
+}
+
 signed main(){
     cin>>m>>n;
+    int x = c(m+n,min(m,n))%mod;
 
-    for(int i=0;i<=n;i++) dp[0][i]=1;
-    dp[1][0]=1;
-
-    int sum=0;
-    for(int i=1;i<=m;i++){
-        for(int j=1;j<=n;j++){
-            dp[i%2][j]=dp[i%2][j-1]+dp[(i+1)%2][j];
-            sum=(sum+ dp[i%2][j-1]*i) %mod;
-            if(j<n && i<m) sum=(sum+ i*j*dp[i%2][j-1])%mod;
-        }
-    }
-    cout<<sum<<endl;
+    cout<<((x*n*m)/2)%mod<<endl;
 }
