@@ -26,10 +26,6 @@ void init(int l, int r, int node) {
     seg[node].mx = max(seg[node<<1].mx,seg[node<<1|1].mx);
 }
 
-void Merge(Nd &ret, Nd &a, Nd &b) {
-
-}
-
 void push(int node, int d) {
     if (seg[node].chg) {
         seg[node].mx = seg[node].chg;
@@ -45,8 +41,17 @@ void push(int node, int d) {
     }
 }
 
-Nd query(int l, int r, int node) {
-
+int query(int l, int r, int node) {
+    push(node,r-l);
+    if (a <= l && r <= b) return seg[node].mx;
+    int mid = (l+r)>>1;
+    if (b <= mid) return query(l,mid,node<<1);
+    else if (a > mid) return query(mid+1,r,node<<1|1);
+    else {
+        int a = query(l,mid,node<<1);
+        int b = query(mid+1,r,node<<1|1);
+        return max(a,b);
+    }
 }
 
 void add(int l, int r, int node, int x) {
@@ -62,11 +67,27 @@ void add(int l, int r, int node, int x) {
         add(l,mid,node<<1,x);
         add(mid+1,r,node<<1|1,x);
     }
-    
+    int ls = (seg[node<<1].chg?seg[node<<1].chg:seg[node<<1].mx)+seg[node<<1].tag;
+    int rs = (seg[node<<1|1].chg?seg[node<<1|1].chg:seg[node<<1|1].mx)+seg[node<<1|1].tag;
+    seg[node].mx = max(ls,rs);
 }
 
 void change(int l, int r, int node, int x) {
-
+    push(node,r-l);
+    if (a <= l && r <= b) {
+        seg[node].chg = x;
+        return;
+    }
+    int mid = (l+r)>>1;
+    if (b <= mid) change(l,mid,node<<1,x);
+    else if (a > mid) change(mid+1,r,node<<1|1,x);
+    else {
+        change(l,mid,node<<1,x);
+        change(mid+1,r,node<<1|1,x);
+    }
+    int ls = (seg[node<<1].chg?seg[node<<1].chg:seg[node<<1].mx)+seg[node<<1].tag;
+    int rs = (seg[node<<1|1].chg?seg[node<<1|1].chg:seg[node<<1|1].mx)+seg[node<<1|1].tag;
+    seg[node].mx = max(ls,rs);
 }
 
 int main() {
@@ -83,10 +104,11 @@ int main() {
             cin>>x;
             add(1,n,1,x);
         } else if (cmd == 2) {
-
+            cout<<query(1,n,1)<<endl;
         } else {
             cin>>x;
-
+            change(1,n,1,x);
         }
     }
+    return 0;
 }
