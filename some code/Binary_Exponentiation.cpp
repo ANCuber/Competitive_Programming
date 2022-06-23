@@ -1,8 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define ll long long
+#define endl '\n'
+
 int BE_pow(int a, int n, int mod) {
-    long long ans = 1;
+    ll ans = 1;
     while (n) {
         if (n & 1) ans = (ans*a)%mod;
         a = (a*a)%mod;
