@@ -7,7 +7,8 @@ using namespace std;
 int n, m;
 
 int find_boss(int x, vector<int> &boss) {
-
+    if (x == boss[x]) return x;
+    return boss[x] = find_boss(boss[x],boss);
 }
 
 int main() {

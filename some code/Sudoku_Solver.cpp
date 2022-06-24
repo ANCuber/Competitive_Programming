@@ -39,7 +39,7 @@ bool allow(vector <vector<int> > &graph, int i, int j) {//whether or not the DFS
 }//this function can be better, but I am lazy X)
 
 
-void solve(int i, int j, vector <vector<int> > &graph) {
+void solve(int i, int j, vector <vector<int> > &graph) {//dfs
     if (i == 8 && j == 8 && graph[8][8] && allow(graph,8,8)) {//find a solution
         print_graph(graph);
         ans++;
