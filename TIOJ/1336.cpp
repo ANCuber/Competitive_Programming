@@ -5,10 +5,14 @@ using namespace std;
 #define endl '\n'
 #define pii pair<int,int>
 
+void dfs(int x, int y, vector<vector<int> > &gr, int tp) {
+    
+}
+
 int main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     int w, h; cin>>w>>h;
-    vector<vector<int> > g(h+2,vector<char>(w+2,0)), sp;
+    vector<vector<int> > g(h+2,vector<int>(w+2,0)), sp;
     char a;
     for (int i = 1; i <= h; ++i) {
         for (int j = 1; j <= w; ++j) {
@@ -27,4 +31,5 @@ int main() {
             
         }
     }
+    return 0;
 }
