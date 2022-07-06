@@ -6,9 +6,24 @@ using namespace std;
 #define pii pair<int,int>
 
 ll ans = 0;
+int D;
 
-void dfs(int cur, int d, int arr[], vector<vector<int> > &g, vector<int> &v) {
-    
+void bfs(int arr[], vector<vector<int> > &g, vector<int> &v) {
+    queue< pii , list< pii > > q;
+    q.push({0,0});
+    v[0] = 1;
+    while(!q.empty()) {
+        pii cur = q.front();
+        q.pop();
+        ans += arr[cur.first];
+        if (cur.second == D) continue;
+        for (auto i : g[cur.first]) {
+            if (!v[i]) {
+                q.push({i,cur.second+1});
+                v[i] = 1;
+            }
+        }
+    }
 }
 
 int main() {
@@ -24,7 +39,8 @@ int main() {
         g[a].push_back(b);
         g[b].push_back(a);
     }
-    dfs(0,0,arr,g,v);
+    cin>>D;
+    bfs(arr,g,v);
     cout<<ans<<endl;
     return 0;
 }
