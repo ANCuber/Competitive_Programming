@@ -8,16 +8,22 @@ using namespace std;
 int main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     int n, st; cin>>n>>st;
-    set <int> s;
     int p;
+    vector < pii > pos(n);
     for (int i = 0; i < n; ++i) {
-        cin>>p;
-        s.insert(p);
+        cin>>pos[i].second;
+        pos[i].first = abs(pos[i].second-st);
     }
+    sort(pos.begin(),pos.end());
     int cur = st;
     int ans = 0;
+    int time = 0;
     for (int i = 0; i < n; ++i) {
-        
+        time += abs(cur-pos[i].second);
+        ans += time;
+        cout<<time<<' ';
+        cur = pos[i].second;
+        cout<<cur<<endl;
     }
     cout<<ans<<endl;
     return 0;
