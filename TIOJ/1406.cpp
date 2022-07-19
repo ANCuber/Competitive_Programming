@@ -9,13 +9,15 @@ using namespace std;
 int n;
 
 bool solve(vector<pair<ll,ll> > arr, ll gus) {
-    ll pre = 0;
     for (int i = 1; i <= n; ++i) {
-        ll cur = pre-(arr[i].first-arr[i-1].first)+arr[i].second;
-        if (cur < gus) return 0;
-        pre = cur-gus;
+        arr[i].first -= gus;
     }
-    return 1;
+    int pre = 0;
+    for (int i = 1; i <= n; ++i) {
+        if (arr[i].first < 0) {
+            
+        }
+    }
 }
 
 int main() {
