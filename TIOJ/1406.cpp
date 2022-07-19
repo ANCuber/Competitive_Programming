@@ -9,26 +9,26 @@ using namespace std;
 int n;
 
 bool solve(vector<pair<ll,ll> > arr, ll gus) {
+    ll sum = 0;
     for (int i = 1; i <= n; ++i) {
-        arr[i].first -= gus;
+        sum += arr[i].second-gus;
+        sum += arr[i-1].first-arr[i].first;
     }
-    int pre = 0;
-    for (int i = 1; i <= n; ++i) {
-        if (arr[i].first < 0) {
-            
-        }
-    }
+    return sum >= 0;
 }
 
 int main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     while(cin>>n) {
-        vector<pair<ll,ll>  > arr(n+1);
+        vector<pair<ll,ll> > arr(n+1);
+        ll l = 1e12+1, r = -1;
         for (int i = 1; i <= n; ++i) {
             cin>>arr[i].first>>arr[i].second;
+            r = max(r,arr[i].second);
+            l = min(l,arr[i].second);
         }
+        r++;
         arr[0] = arr[1];
-        ll l = 0, r = 1e12+1;
         ll gus = (l+r)>>1;
         while(r-l > 1) {
             if (solve(arr,gus)) {
@@ -38,7 +38,7 @@ int main() {
             }
             gus = (l+r)>>1;
         }
-        cout<<gus<<endl;
+        cout<<l<<endl;
     }
     return 0;
 }
