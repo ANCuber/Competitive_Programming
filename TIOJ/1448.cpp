@@ -4,37 +4,33 @@ using namespace std;
 #define ll long long
 #define endl '\n'
 #define pii pair<int,int>
+#define p_q priority_queue
+#pragma GCC optimize("Ofast")
 
+vector <int> bs, gp;
 int n, k;
-vector<int> type;
+int d, x, y;
 
-bool judge(int d, int x, int y) {
-    if (x > n || y > n) return true;
-    if (d == 2 && x == y) return true;
-    if (d == 1) {
-        if (type[x] == type[y] && type[x] != 0) return false;
-        if (type[x] == type[y]) {
-            
-        }
-        else if (type[x] == 0 || type[y] == 0) {
-            
-        }
-        return true;
-    } else {
-        if (type[x] == type[y] && type[x] != 0) return true;
+int fb(int p) {
+    if (bs[p] == p) return p;
+    return bs[p] = fb(bs[p]);
+}
 
-    }
+bool check() {
+    cin>>d>>x>>y;
 }
 
 int main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     cin>>n>>k;
-    type.resize(n+1,0);
-    int d, x, y;
+    bs.resize(n+1);
+    gp.assign(n+1,0);
+    for (int i = 1; i <= n; ++i) bs[i] = i;
+
     int ans = 0;
     while(k--) {
-        cin>>d>>x>>y;
-        ans += judge(d,x,y);
+        ans += !check();
     }
+    cout<<ans<<endl;
     return 0;
 }
