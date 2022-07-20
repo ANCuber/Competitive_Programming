@@ -27,17 +27,10 @@ int main() {
         }
         //cout<<endl;
     }
-     
+
     while(cin>>n && n) {
-        if (n >= 10 && ans[n] < 1000) {
-            if (ans[n] < 100) {
-                cout<<"00"<<ans[n];
-            } else if (ans[n] < 10) {
-                cout<<"000"<<ans[n];
-            } else {
-                cout<<"0"<<ans[n];
-            }
-            cout<<endl;
+        if (n >= 10) {
+            cout<<setw(4)<<setfill('0')<<ans[n]<<endl;
         } else {
             cout<<ans[n]<<endl;
         }
