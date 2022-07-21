@@ -11,9 +11,19 @@ using namespace std;
 const ull mod = 1e9+7;
 // (a/b)%mod = a%mod*inv(b)%mod
 
-ull mie(ull a, ull p, ull am, ull an, ull pm, ull pn) {
+/*ull mie(ull a, ull p, ull am, ull an, ull pm, ull pn) {
     if (!p) return am;
     return mie(p,a%p,pm,pn,am-(pm*(a/p)),an-(pn*(a/p)));
+}*/
+
+ull power(ull a, ull k) {
+    ull ans = 1, base = a;
+    while(k) {
+        if (k&1) ans = ans*base%mod;
+        base = (base)*(base)%mod;
+        k >>= 1;
+    }
+    return ans;
 }
 
 int main() {
@@ -24,8 +34,7 @@ int main() {
     dp[1] = 1;
     for (ull i = 2; i <= 1000000; ++i) {
         ull a = dp[i-1]*((i<<2)-2)%mod;
-        ull ret = mie(i+1,mod,1,0,0,1)+mod;
-        ret %= mod;
+        ull ret = power(i+1,mod-2);
         dp[i] = (a*ret)%mod;
     }
     

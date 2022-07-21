@@ -8,6 +8,11 @@ using namespace std;
 #define p_q priority_queue
 #pragma GCC optimize("Ofast")
 
+struct Nd{
+    int p;
+    vector<int> cp;
+};
+
 int main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     int n, m, st, ed;
@@ -19,4 +24,33 @@ int main() {
         g[x].push(y);
         g[y].push(x);
     }
+    queue <Nd> q;
+    vector<int> ori;
+    vector<int> vis(n+1,0);
+    vector<int> ans;
+    q.push({st,ori});
+    while(!q.empty()) {
+        int curp = q.front().p;
+        vector<int> path = q.front().cp;
+        path.push_back(curp);
+        if (curp == ed) {
+            ans = path;
+            break;
+        }
+        q.pop();
+        while(!g[curp].empty()) {
+            if (!vis[g[curp].top()]) {
+                q.push({g[curp].top(),path});
+            }
+            g[curp].pop();
+        }
+    }
+    cout<<ans.size()-2<<endl;
+    for (int i = 0; i < ans.size(); ++i) {
+        if (i) cout<<'-';
+        cout<<ans[i];
+    }
+    cout<<endl;
+
+    return 0;
 }
