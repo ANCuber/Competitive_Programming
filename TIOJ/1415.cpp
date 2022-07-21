@@ -8,17 +8,19 @@ using namespace std;
 #define p_q priority_queue
 #pragma GCC optimize("Ofast")
 
-struct City{
-    int x, y;
-};
-
 int main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    int n, ln, w;
-    cin>>n>>ln>>w;
-    vector <City> px(n);
-
-    for (int i = 0; i < n; ++i) {
-        
+    int n;
+    while(cin>>n) {
+        int k, a;
+        ll ans = 0;
+        while(n--) {
+            cin>>k;
+            while(k--) {
+                cin>>a;
+            }
+        }
+        cout<<ans<<endl;
     }
+    return 0;
 }
