@@ -8,6 +8,8 @@ using namespace std;
 #define pii pair<int,int>
 #define p_q priority_queue
 
+string ans[2] = {"zzz...","Asssss!!"};
+
 int main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     int t; cin>>t;
