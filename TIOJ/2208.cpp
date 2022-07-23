@@ -1,39 +1,80 @@
+#pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 using namespace std;
 
-struct position{
-    int x, y;
-    int time;
-};
-
-int dx[4] = {0,0,+1,-1};
-int dy[4] = {+1,-1,0,0};
+#define ll long long
+#define ull unsigned long long
+#define endl '\n'
+#define pii pair<int,int>
+#define p_q priority_queue
 
 int n, m, p, q, a, b;
 
-int main() {
-    cin>>n>>m>>p>>q>>a>>b;
-    vector <vector<int> > graph(n+1,vector<int>(m+1,0));
-    vector <vector<int> > visited(n+1,vector<int>(m+1,0));
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 1; j <= m; ++j) {
-            cin>>graph[i][j];
-        }
-    }
-    queue <position> q;
-    position initial;
-    initial.x = 1; initial.y = 1;
-    initial.time = 0;
-    q.push(initial);
-    while(!q.empty()) {
-        position now = q.front();
-        q.pop();
-        for (int i = 0; i < 4; ++i) {
-            
-        }
-        for (int i = 0; i < 4; ++i) {
+bool check(int x, int y) {
+    return (x>=0 && x<n && y>=0 && y<m);
+}
 
+int main() {
+    ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+    cin>>n>>m>>p>>q>>a>>b;
+    a--,b--;
+    int dx[8] = {0,0,0,0,p,-p,q,-q};
+    int dy[8] = {p,-p,q,-q,0,0,0,0};
+    vector<vector<int> > g(n,vector<int>(m)), vis(n,vector<int>(m,0));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            cin>>g[i][j];
         }
     }
-    
+    queue < pii > q;
+    q.push({0,0});
+    vis[0][0] = 1;
+    int ctrl = 0;
+    while(!q.empty()) {
+        int cx = q.front().first, cy = q.front().second;
+        if (cx == a && cy == b) {
+            ctrl = 1;
+            break;
+        }
+        q.pop();
+        for (int i = 0; i < 8; ++i) {
+            if (check(cx+dx[i],cy+dy[i]) && !g[cx+dx[i]][cy+dy[i]] && !vis[cx+dx[i]][cy+dy[i]]) {
+                q.push({cx+dx[i],cy+dy[i]});
+                vis[cx+dx[i]][cy+dy[i]] = vis[cx][cy]+1;
+            }
+        }
+    }
+    if (!ctrl) {
+        cout<<-1<<endl;
+        return 0;
+    }
+    int ans = vis[a][b]-1;
+    ctrl = 0;
+    while(!q.empty()) q.pop();
+    q.push({a,b});
+    vis.assign(n,vector<int>(m,0));
+    vis[a][b] = 1;
+    while(!q.empty()) {
+        int cx = q.front().first, cy = q.front().second;
+        if (cx == n-1 && cy == m-1) {
+            ctrl = 1;
+            break;
+        }
+        q.pop();
+        for (int i = 0; i < 8; ++i) {
+            if (check(cx+dx[i],cy+dy[i]) && !g[cx+dx[i]][cy+dy[i]] && !vis[cx+dx[i]][cy+dy[i]]) {
+                q.push({cx+dx[i],cy+dy[i]});
+                vis[cx+dx[i]][cy+dy[i]] = vis[cx][cy]+1;
+            }
+        }
+    }
+    if (!ctrl) {
+        cout<<-1<<endl;
+        return 0;
+    }
+    ans += (vis[n-1][m-1]-1);
+    cout<<ans<<endl;
+
+
+    return 0;
 }
