@@ -16,7 +16,16 @@ int main() {
     int n;
     while(t--) {
         cin>>n;
-        
+        vector<ll> a(n);
+        for (auto& i : a) cin>>i;
+        ll mod = a[1];
+        ll cur = 1;
+        for (int i = 0; i < n; ++i) {
+            if (i == 1) continue;
+            cur *= a[i];
+            cur %= mod;
+        }
+        cout<<ans[(cur%mod==0)]<<endl;
     }
     return 0;
 }
