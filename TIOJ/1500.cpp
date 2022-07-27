@@ -1,80 +1,62 @@
+#pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 using namespace std;
 
+#define ll long long
+#define int long long
+#define ull unsigned long long
 #define endl '\n'
+#define pii pair<int,int>
+#define p_q priority_queue
+#define pll pair<ll,ll>
+#define double long double
 
-struct Point {
-    long long x;
-    long long y;
-};
+vector< pii > g;
 
-bool cmp_x (Point a, Point b){
-    return a.x < b.x;
+double dis(pii a, pii b) {
+    double x1 = a.first-b.first;
+    double y1 = a.second-b.second;
+    return sqrt(x1*x1+y1*y1);
 }
-bool cmp_y (Point a, Point b){
-    return a.y < b.y;
+
+bool cmp(pii a, pii b) {
+    return a.second < b.second;
 }
 
-long long solve(long long l, long long r, vector <Point> &dots) {
-    if (r == l) {
-        return LONG_LONG_MAX;
-    } else if (r-l == 1) {
-        if (dots[l].y > dots[r].y) swap(dots[l],dots[r]);
-        long long xd = dots[r].x-dots[l].x;
-        long long yd = dots[r].y-dots[l].y;
-        return xd*xd+yd*yd;
-    }
-
-    long long mid = (l+r)>>1;
-    long long min_c = min(solve(l,mid,dots),solve(mid+1,r,dots));
-    long long min_dis = LONG_LONG_MAX;
-    long long d = ceil(sqrt(min_c));
-    if (min_c == 0) return min_c;
-    long long fund = (dots[mid+1].x+dots[mid].x)>>1;
-    vector <Point> temp(r-l+1);
-    merge(
-        dots.begin()+l,dots.begin()+mid+1,
-        dots.begin()+mid+1,dots.begin()+r+1,
-        temp.begin(), cmp_y
-    );
-    long long id = l;
-    for (int i = 0; i < r-l+1; ++i) {
-        dots[id++] = temp[i];
-    }
-    temp.clear();
+double DQ(int l, int r) {
+    if (l == r) return 5e18;
+    /*if (r-l == 1) {
+        if (g[l].second > g[r].second) swap(g[l],g[r]);
+        return dis(g[l],g[r]);
+    }*/
+    int mid = (r+l)>>1;
+    int mdid = g[mid].first;
+    double d = min(DQ(l,mid),DQ(mid+1,r));
+    inplace_merge(g.begin()+l,g.begin()+mid+1,g.begin()+r+1,cmp);
+    vector < pii > v;
     for (int i = l; i <= r; ++i) {
-        if (abs(dots[i].x-fund) < d) {
-            temp.push_back(dots[i]);
+        if (abs(g[i].first - mdid) <= d) {
+            v.push_back(g[i]);
         }
     }
-    long long len = temp.size();
-    for (int i = 0; i < len; ++i) {
-        for (long long j = i+1; j < len; ++j) {
-            long long xd = temp[i].x-temp[j].x;
-            long long yd = temp[i].y-temp[j].y;
-            min_dis = min(min_dis,xd*xd+yd*yd);
-            if (temp[j].y-temp[i].y > d) break;
+    for (int i = 0; i < v.size(); ++i) {
+        for (int j = i+1; j < v.size(); ++j) {
+            d = min(d,dis(v[i],v[j]));
+            if (abs(v[i].second-v[j].second) > d) break;
         }
     }
-
-    return min(min_dis,min_c);
+    return d;
 }
 
-int main() {
+signed main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    long long n;
+    int n;
     while(cin>>n) {
-        vector <Point> dots(n);
-        for (int i = 0; i < n; ++i) {
-            cin>>dots[i].x>>dots[i].y;
-        }
-        if (n == 1) {
-            cout<<0<<endl;
-            return 0;
-        }
-        sort(dots.begin(),dots.end(),cmp_x);
-        double x = (double)solve(0,n-1,dots);
-        cout<<fixed<<setprecision(6)<<sqrt(x)<<endl;
+        g.resize(n);
+        for (int i = 0; i < n; ++i) cin>>g[i].first>>g[i].second;
+        sort(g.begin(),g.end());
+        double ans = DQ(0,n-1);
+        cout<<fixed<<setprecision(6)<<ans<<endl;
     }
     return 0;
 }
