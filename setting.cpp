@@ -6,6 +6,7 @@ using namespace std;
 #define ull unsigned long long
 #define endl '\n'
 #define pii pair<int,int>
+#define pll pair<ll,ll>
 #define p_q priority_queue
 
 int main() {

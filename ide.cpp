@@ -1,14 +1,12 @@
 #include <bits/stdc++.h>
-using namespace std; 
-
-for (int = 1; i < n; ++i) {
-    for updated Edges:
-        dis[v] = min(dis[v],dis[u]+w[u][v]);
-}
+using namespace std;
+#define pii pair<int,int>
 
 int main() {
     int a, b;
+    map <pii,int> mp;
     cin>>a>>b;
-    cout<<a+b<<endl;
+    mp[{a,b}] = 1;
+    cout<<mp[{a,b}];
     return 0;
 }
