@@ -1,21 +1,33 @@
+#pragma GCC optimize("Ofast,unroll-loops,no-stack-protector,fast-math")
+#pragma GCC optimize("O3")
 #include <bits/stdc++.h>
 using namespace std;
 
-#define endl '\n'
 #define ll long long
+#define ull unsigned long long
+#define endl '\n'
+#define pii pair<int,int>
+#define pll pair<ll,ll>
+#define p_q priority_queue
+
+int n, m, k;
+int u, v, c, st;
+int gl = 0;
+vector<vector<int> > g(15,vector<int>(15));
 
 int main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    int n, m; cin>>n>>m;
-    vector<vector<int> > graph(n,vector<int>(n,1e9));
+    cin>>n>>m;
     for (int i = 0; i < m; ++i) {
-        int a, b; cin>>a>>b;
-        int d; cin>>d;
-        graph[a][b] = d;
-        graph[b][a] = d;
+        cin>>u>>v>>c;
+        g[u][v] = g[v][u] = c;
     }
-    int k; cin>>k;
-    vector<int> des(k);
-    for (int i = 0; i < k;++i) cin>>des[i];
+    cin>>k>>st;
+    gl |= (1<<st);
+    for (int i = 0; i < k-1; ++k) {
+        int p; cin>>p;
+        gl |= (1<<p);
+    }
     
+    return 0;
 }

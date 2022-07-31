@@ -4,9 +4,8 @@ using namespace std;
 
 int main() {
     int a, b;
-    map <pii,int> mp;
     cin>>a>>b;
-    mp[{a,b}] = 1;
-    cout<<mp[{a,b}];
+    cout<<__gcd(a,b)<<endl;
+    cout<<__gcd(a,-b)<<endl;
     return 0;
 }
