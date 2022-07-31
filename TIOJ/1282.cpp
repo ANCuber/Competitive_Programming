@@ -19,7 +19,7 @@ int n, q, ql, qr, k, cmd;
 Node seg[MAX<<2];
 
 void merge(int p) {
-    seg[p].gcd = __gcd(seg[p<<1],seg[p<<1|1]);
+    seg[p].gcd = __gcd(seg[p<<1].gcd,seg[p<<1|1].gcd);
     seg[p].val = seg[p<<1].val+seg[p<<1|1].val;
 }
 
@@ -37,11 +37,11 @@ void chg(int p, int l, int r, int v, int tar) {
     if (l == r) {
         seg[p].val += v;
         seg[p].gcd += v;
-        return 0;
+        return;
     }
     int mid = (l+r)>>1;
-    if (tar <= mid) chg(p<<1,l,mid,v);
-    else chg(p<<1|1,mid+1,r,v);
+    if (tar <= mid) chg(p<<1,l,mid,v,tar);
+    else chg(p<<1|1,mid+1,r,v,tar);
     merge(p);
 }
 
@@ -78,8 +78,13 @@ int main() {
             cin>>ql>>qr;
             ql++;
             Node cur = query(1,1,n);
-            ql--;
-            Node 
+            Node al = {0,0}; 
+            if (ql <= qr) {
+                qr = ql-1;
+                ql = 1;
+                al = query(1,1,n);
+            }
+            cout<<abs(__gcd(al.val,cur.gcd))<<endl;
         }
     }
     return 0;
