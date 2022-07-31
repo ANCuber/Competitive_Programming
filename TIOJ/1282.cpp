@@ -33,20 +33,31 @@ void init(int p, int l, int r) {
     merge(p);
 }
 
-void chg(int p, int l, int r, int tar) {
+void chg(int p, int l, int r, int v, int tar) {
     if (l == r) {
-        seg[p].val += tar;
-        seg[p].gcd += tar;
+        seg[p].val += v;
+        seg[p].gcd += v;
         return 0;
     }
     int mid = (l+r)>>1;
-    if (qr <= mid) chg(p<<1,l,mid,tar);
-    else chg(p<<1|1,mid+1,r,tar);
+    if (tar <= mid) chg(p<<1,l,mid,v);
+    else chg(p<<1|1,mid+1,r,v);
     merge(p);
 }
 
 Node query(int p, int l, int r) {
-    
+    if (ql <= l && r <= qr) return seg[p];
+    int mid = (l+r)>>1;
+    if (qr <= mid) return query(p<<1,l,mid);
+    else if (ql > mid) return query(p<<1|1,mid+1,r);
+    else {
+        Node ls, rs, ret;
+        ls = query(p<<1,l,mid);
+        rs = query(p<<1|1,mid+1,r);
+        ret.val = ls.val+rs.val;
+        ret.gcd = __gcd(ls.gcd,rs.gcd);
+        return ret;
+    }
 }
 
 int main() {
@@ -61,8 +72,14 @@ int main() {
         cin>>cmd;
         if (cmd == 1) {
             cin>>ql>>qr>>k;
+            chg(1,1,n,k,ql);
+            if (qr < n) chg(1,1,n,-k,qr+1);
         } else {
             cin>>ql>>qr;
+            ql++;
+            Node cur = query(1,1,n);
+            ql--;
+            Node 
         }
     }
     return 0;
