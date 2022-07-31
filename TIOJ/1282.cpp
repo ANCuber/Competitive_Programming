@@ -3,7 +3,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define ll long long
+#define int long long
 #define ull unsigned long long
 #define endl '\n'
 #define pii pair<int,int>
@@ -12,7 +12,7 @@ using namespace std;
 
 const int MAX = 1e5+5;
 
-struct Node{int gcd, val;};
+struct Node{int gcd = 0, val = 0;};
 
 int a[MAX] = {0}, d[MAX] = {0};
 int n, q, ql, qr, k, cmd;
@@ -36,7 +36,7 @@ void init(int p, int l, int r) {
 void chg(int p, int l, int r, int v, int tar) {
     if (l == r) {
         seg[p].val += v;
-        seg[p].gcd += v;
+        seg[p].gcd = seg[p].val;
         return;
     }
     int mid = (l+r)>>1;
@@ -60,7 +60,7 @@ Node query(int p, int l, int r) {
     }
 }
 
-int main() {
+signed main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     cin>>n>>q;
     for (int i = 1; i <= n; ++i) {
@@ -76,15 +76,12 @@ int main() {
             if (qr < n) chg(1,1,n,-k,qr+1);
         } else {
             cin>>ql>>qr;
-            ql++;
-            Node cur = query(1,1,n);
-            Node al = {0,0}; 
-            if (ql <= qr) {
-                qr = ql-1;
-                ql = 1;
-                al = query(1,1,n);
-            }
-            cout<<abs(__gcd(al.val,cur.gcd))<<endl;
+            Node arr, cur;
+            if (++ql <= qr) cur = query(1,1,n);
+            qr = ql-1;
+            ql = 1;
+            arr = query(1,1,n);
+            cout<<abs(__gcd(arr.val,cur.gcd))<<endl;
         }
     }
     return 0;
