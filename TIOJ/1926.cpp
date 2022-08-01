@@ -13,7 +13,7 @@ using namespace std;
 
 ll dx[4] = {0,0,1,-1};
 ll dy[4] = {1,-1,0,0};
-ll mid, n, m;
+ll n, m;
 
 bool check(ll x, ll y) {
     bool flag = 1;
@@ -26,28 +26,21 @@ bool check(ll x, ll y) {
     return flag;
 }
 
-ll query(ll l, ll r) {
-    if (l == r) return l;
-
-    ll m = r+(l-r)/2;
-    ll ls = query(l,m), rs = query(m+1,r);
-    if (Oshietekudasai(mid,ls,mid,rs)) return ls;  
-    else return rs;
+void solve(ll l, ll r) {
+    ll mid = l+(r-l)/2;
+    pll low = {0,mid};
+    for (int i = 0; i < n; ++i) {
+        if (!Oshietekudasai(low.first,mid,i,mid)) low = {i,mid};
+    }
+    if (check(low.first,low.second)) Report(low.first,low.second);
+    else if (mid == 0) solve(mid+1,r);
+    else if (mid == m-1) solve(l,mid);
+    else if (Oshietekudasai(low.first,mid,low.first,mid+1)) solve(l,mid);
+    else solve(mid+1,r);
 }
 
 int main() {
     Init(&n,&m);
-    ll l = 0, r = m;
-    mid = r+(l-r)/2;
-    while(true) {
-        ll minn = query(0,n-1);
-        if (check(mid,minn)) {
-            Report(mid,minn);
-            return 0;
-        }
-        if (Oshietekudasai(mid,minn,mid+1,minn)) r = mid;  
-        else l = mid;
-        mid = r+(l-r)/2;
-    }
+    solve(0,m-1);
     return 0;
 }
