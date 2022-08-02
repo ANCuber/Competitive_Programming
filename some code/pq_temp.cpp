@@ -3,7 +3,7 @@ struct PQ{
     void psh(int x) {
         pq.push(x);
     }
-    int big() {
+    int tp() {
         while(!rm.empty() && pq.top() == rm.top()) {
             pq.pop();
             rm.pop();
@@ -12,5 +12,8 @@ struct PQ{
     }
     int rmv(int x) {
         rm.push(x);
+    }
+    int sz() {
+        return pq.size()-rm.size();
     }
 };
