@@ -23,20 +23,7 @@ int main() {
                 g[i][j] += g[i-1][j];
             }
         }
-        int ans = 0;
-        for (int i = 0; i < n; ++i) {
-            for (int j = i+1; j <= n; ++j) {
-                int lp = 0 , cnt = 0;
-                for (int k = 1; k <= m; ++k) {
-                    cnt += g[j][k]-g[i][k];
-                    while (lp < k && cnt <= (k-lp)*(j-i)-cnt) {
-                        cnt -= g[j][++lp]-g[i][lp];
-                    }
-                    if (cnt > (k-lp)*(j-i)-cnt) ans = max(ans,(k-lp)*(j-i));
-                }
-            }
-        }
-        cout<<ans<<endl;
+        
     }
     return 0;
 }
