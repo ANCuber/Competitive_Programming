@@ -1,52 +1,37 @@
+#pragma GCC optimize("Ofast,unroll-loops")
 #include <bits/stdc++.h>
 using namespace std;
 
-#define ll long long
+typedef long long ll;
+typedef unsigned long long ull;
+typedef pair<int,int> pii;
+typedef pair<long long,long long> pll;
+#define p_q priority_queue
 #define endl '\n'
-#define pii pair<int,int>
-
-vector <int> f;
-
-struct Nd{
-    int x;
-    Nd *l = nullptr, *r = nullptr;
-};
-Nd *root = new Nd;
-
-void push(Nd *cur, int v) {
-    if (v > cur->x) {
-        if (!cur->r) {
-            Nd *nw = new Nd;
-            nw->x = v;
-            cur->r = nw;
-            f[v] = cur->x;
-        } else {
-            push(cur->r,v);
-        }
-    } else {
-        if (!cur->l) {
-            Nd *nw = new Nd;
-            nw->x = v;
-            cur->l = nw;
-            f[v] = cur->x;
-        } else {
-            push(cur->l,v);
-        }
-    }
-}
 
 int main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    int n; cin>>n;
-    f.assign(n+1,0);
-    int r; cin>>r;
-    root->x = r;
-    for (int i = 0; i < n-1; ++i) {
-        cin>>r;
-        push(root,r);
+    int n; cin>>n;    
+    vector<int> fa(n+1,0), id(n+1), a(n+1,0);
+    stack<int,vector<int> > stk;
+    stk.push(0);
+    for (int i = 1; i <= n; ++i) {
+        cin>>a[i];
+        id[a[i]] = i;
     }
     for (int i = 1; i <= n; ++i) {
-        cout<<f[i]<<endl;
+        int pp = 0;
+        while(stk.top() > id[i]) {
+            pp = stk.top();
+            stk.pop();
+        }
+        fa[i] = a[stk.top()];
+        fa[a[pp]] = i;
+        stk.push(id[i]);
     }
+    for (int i = 1; i <= n; ++i) {
+        cout<<fa[i]<<endl;
+    }
+    
     return 0;
 }
