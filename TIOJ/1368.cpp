@@ -10,17 +10,17 @@ typedef pair<long long,long long> pll;
 #define p_q priority_queue
 #define endl '\n'
 
-int solve(int l, int r, vector<int> &arr) {
-    
-}
+int sum = 0;
 
 signed main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     int n;
     while(cin>>n) {
-        vector<int> arr(n+1);
-        for (int i = 1; i <= n; ++i) cin>>arr[i];
-        cout<<solve(1,n,arr)<<endl;
+        vector<int> arr(n);
+        for (auto& i : arr) cin>>i;
+        for (int i = 0; i < n; ++i) {
+            
+        }
     }
     return 0;
 }
