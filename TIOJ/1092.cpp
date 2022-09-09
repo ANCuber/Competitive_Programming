@@ -30,10 +30,8 @@ int main() {
                 break;
             }
         }
-        int cur;
-        //lb[q.front()] = 1;
         while(!q.empty()) {
-            cur = q.front();
+            int cur = q.front();
             q.pop();
             for (auto i : g[cur]) {
                 if (lb[cur]) lb[i] = 0;
@@ -43,8 +41,7 @@ int main() {
                 }
             }
         }
-        //for(int i=1;i<=n;i++) cout<<i<<" "<<lb[i]<<"\n";
-        if (lb[cur]) {
+        if (lb[1]) {
             if (x[1] == 'i') {
                 cout<<"Mimi"<<endl;
             } else {
