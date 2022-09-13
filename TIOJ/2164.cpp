@@ -19,10 +19,35 @@ int dis(shop a, shop b) {
 signed main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     int n; cin>>n;
-    int x, y, z, ans = 0;
-    vector<shop> sp(n);
-    vector<bool> v(n,0);
-    vector<int> d(n,LONG_LONG_MAX);
+    int ans = 0;
+    vector<shop> a(n);
+    vector<bool> vis(n,0);
+    vector<int> d(n,1e18);
+    vector<vector<int> > g(n,vector<int>(n,0));
+    for (int i = 0; i < n; ++i) cin>>a[i].x>>a[i].y>>a[i].z;
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            g[i][j] = dis(a[i],a[j]);
+        }
+    }
+    vis[0] = 1;
+    for (int i = 0; i < n; ++i) d[i] = min(d[i],g[0][i]);
+    for (int i = 1; i < n; ++i) {
+        int mn = 1e18;
+        int to = -1;
+        for (int j = 0; j < n; ++j) {
+            if (!vis[j] && mn > d[j]) {
+                to = j;
+                mn = d[j];
+            }
+        }
+        
+        ans += mn;
+        vis[to] = 1;
+        for (int j = 0; j < n; ++j) {
+            d[j] = min(d[j],g[to][j]);
+        }
+    }
     
     cout<<ans<<endl;
     return 0;
