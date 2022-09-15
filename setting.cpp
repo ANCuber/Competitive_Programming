@@ -2,10 +2,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-typedef long long ll;
-typedef unsigned long long ull;
-typedef pair<int,int> pii;
-typedef pair<long long,long long> pll;
+#define ll long long
+#define ull unsigned long long
+#define pii pair<int,int>
+#define pll pair<long long,long long> 
 #define p_q priority_queue
 #define endl '\n'
 
