@@ -8,15 +8,12 @@ using namespace std;
 #define pll pair<long long,long long> 
 #define p_q priority_queue
 #define endl '\n'
+#define int long long
 
-bool cmp(pii a, pii b) {
-    return a.second<b.second;
-}
-
-int main() {
+signed main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    int n, t, ans = 0;
+    int n, t, c, h;
     cin>>n>>t;
-    
+
     return 0;
 }
