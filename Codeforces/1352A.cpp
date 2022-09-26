@@ -8,20 +8,21 @@ using namespace std;
 #define pll pair<long long,long long> 
 #define p_q priority_queue
 #define endl '\n'
-#define int long long
 
-struct val{
-    int c, h;
-};
-
-signed main() {
+int main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    int n, t;
-    cin>>n>>t;
-    val arr[n];
-    for (int i = 0; i < n; ++i) cin>>arr[i].c>>arr[i].h;
-    
-    
-    
+    int t; cin>>t;
+    while(t--) {
+        int n; cin>>n;
+        int mx = 0, ans = 0;
+        for (int i = 1; i <= n; ++i) {
+            int a; cin>>a;
+            if (mx < a) {
+                ans = i;
+                mx = a;
+            }
+        }
+        cout<<ans<<endl;
+    }
     return 0;
 }
