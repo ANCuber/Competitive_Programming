@@ -1,26 +1,27 @@
+#pragma GCC optimize("Ofast,unroll-loops")
 #include <bits/stdc++.h>
 using namespace std;
 
 #define ll long long
-#define endl '\n'
+#define ull unsigned long long
 #define pii pair<int,int>
+#define pll pair<long long,long long> 
+#define p_q priority_queue
+#define endl '\n'
 
 int main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    int n, p;
-    ll ans = 0;
-    while(cin>>n>>p && n && p) {
-        ans = 0;
-        vector <int> k(n); 
-        for (int i = 0; i < n; ++i) {
-            cin>>k[i];
+    int n, p;    
+    while(cin>>n>>p && (n+p)) {
+        vector<ll> dp(p+1,0);
+        dp[0] = 1;
+        while(n--) {
+            int a; cin>>a;
+            for (int i = a; i <= p; ++i) {
+                dp[i] += dp[i-a];
+            }
         }
-        sort(k.begin(),k.end());
-        if (k[0] > n) {
-            cout<<0<<endl;
-            continue;
-        }
-
+        cout<<dp[p]<<endl;
     }
     return 0;
 }
