@@ -9,6 +9,7 @@ using namespace std;
 #define p_q priority_queue
 #define endl '\n'
 #define pb push_back
+#define int long long
 
 int n, m;
 
@@ -29,20 +30,15 @@ signed main() {
         int ans = 0;
         for (int i = 1; i <= n; ++i) {
             for (int j = i; j <= n; ++j) {
-                int mx = -1e5, sum = 0, l=1, len =0; 
+                int len = 0;
                 for (int k = 1; k <= m; ++k) {
-                    if (sum < 0) {
-                        sum = g[j][k]-g[i-1][k];
-                        l = k;
-                    } else {
-                        sum += (g[j][k]-g[i-1][k]);
+                    int sum = 0;
+                    for (int l = k; l >= 1; --l) {
+                        sum += (g[j][l]-g[i-1][l]);
+                        if (sum > 0) len = max(len,k-l+1);
                     }
-                    if (sum > 0) {
-                        len = max(len,k-l+1);
-                    }
-                    mx = max(mx,sum);
                 }
-                if (mx > 0) ans = max(ans,len*(j-i+1));
+                ans = max(ans,len*(j-i+1));
                 //cout<<i<<' '<<j<<' '<<len<<endl;
             }
         }
@@ -50,3 +46,4 @@ signed main() {
     }
     return 0;
 }
+
