@@ -15,9 +15,13 @@ int main() {
     int t; cin>>t;
     while(t--) {
         int s; cin>>s;
-        for (int i = 0; i < s; ++i) {
-            
-        }
+        vector<string> a(s+1), b(s+1); 
+        for (int i = 1; i <= s; ++i) cin>>a[i];
+        for (int i = 1; i <= s; ++i) cin>>a[i];
+        
+        
+        
+        cout<<dp[s][s]<<endl;
     }
     return 0;
 }

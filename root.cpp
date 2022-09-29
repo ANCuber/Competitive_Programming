@@ -27,7 +27,7 @@ double ROOT(double x,int y) {
     //printf("左界%.15lf,右界%.15lf\n",left,right);
     while(right-left > eps) {
         mid = (right+left)/2;
-        if(my(mid,y) > x) {
+        if(mypow(mid,y) > x) {
             right = mid;
         } else {
             left = mid;
