@@ -10,31 +10,33 @@ using namespace std;
 #define endl '\n'
 #define pb push_back
 
-#define int long long
-
 signed main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     int n;
     while(cin>>n && n) {
-        vector< pii > a(n+1), dp(n+1,{0,0});
-        vector<int> p(n+1,0);
-        for (int i = 1; i <= n; ++i) cin>>a[i].first>>a[i].second>>p[i];
+        vector<int> p(n+1), l(n+1), r(n+1);
+        //vector<vector<int> > dp(n+1,vector<int>(n+1,0));
+        int dp[n+1][n+1] = {{0}};
+        for (int i = 1; i <= n; ++i) cin>>l[i]>>r[i]>>p[i];
         for (int i = 1; i <= n; ++i) {
-            int mx = 0, bd = a[i].first+p[i]-1;
-            for (int j = 1; j < i; ++j) {
-                if (dp[j].second < a[i].first || dp[j].second+p[i] <= a[i].second) {
-                    if (mx < dp[j].first) {
-                        mx = dp[j].first;
-                        bd = max(dp[j].second,a[i].first-1)+p[i];
-                    } else if (mx == dp[j].first) {
-                        bd = min(bd,max(dp[j].second,a[i].first-1)+p[i]);
+            l[i]--;
+            for (int j = 1; j <= n; ++j) {
+                if (j > i) {
+                    dp[i][j] = 1e9;
+                    continue;
+                }
+                if (i == 1) dp[i][j] = (l[i]+p[i] <= r[i])?(l[i]+p[i]):(1e9);
+                else {
+                    dp[i][j] = dp[i-1][j];
+                    if (max(dp[i-1][j-1],l[i])+p[i] <= r[i]) {
+                        dp[i][j] = min(max(dp[i-1][j-1],l[i])+p[i],dp[i][j]);
                     }
                 }
             }
-            dp[i] = {mx+1,bd};
-            //cout<<dp[i].first<<':'<<dp[i].second-p[i]+1<<' '<<dp[i].second<<endl;
         }
-        cout<<max_element(dp.begin(),dp.end())->first<<endl;
+        int ans = 0;
+        for (int i = 1; i <= n; ++i) if(dp[n][i] <= r[n]) ans = i;
+        cout<<ans<<endl;
     }
     return 0;
 }
