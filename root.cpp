@@ -3,7 +3,7 @@ using namespace std;
 
 double ROOT(double,int);
 double mypow(double,int);
-const double eps = 1e-10;
+const double eps = 1e-12;
 
 int main() { 
     double x; int y;
@@ -11,11 +11,13 @@ int main() {
     cin>>x;
     cout<<"請輸入一正整數來開幾次方： ";
     cin>>y;
-    if(x<0 && y%2) printf("%.16lf 的開 %d 次方是 -%.16lf\n",x,y,ROOT(-x,y));
-    else if(x<0 &&y==2) printf("%.16lf 的開 %d 次方是 %.16lf i\n",x,y,ROOT(-x,y));
-    else if(x<0 &&y%2==0 || y<=0 ) printf("無定義\n");
-    else printf("%.16lf 的開 %d 次方是 %.16lf\n",x,y,ROOT(x,y));
-    printf("\n");
+    if(x<0 &&y%2==0 || y<=0 ) {
+        printf("無定義\n");
+    } else {
+        cout<<x<<"的開"<<y<<"次方是:"<<endl;
+        cout<<"Ans:";
+        cout<<fixed<<setprecision(10)<<ROOT(x,y)<<endl;
+    }
     return 0;
 }
 
