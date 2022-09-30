@@ -15,7 +15,6 @@ int main() {
         printf("無定義\n");
     } else {
         cout<<x<<"的開"<<y<<"次方是:"<<endl;
-        cout<<"Ans:";
         cout<<fixed<<setprecision(10)<<ROOT(x,y)<<endl;
     }
     return 0;
