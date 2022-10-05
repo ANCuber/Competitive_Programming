@@ -3,20 +3,18 @@
 using namespace std;
 
 #define ll long long
-#define ull unsigned long long
-#define endl '\n'
 #define pii pair<int,int>
 #define p_q priority_queue
+#define endl '\n'
+#define pb push_back
 
-int main() {
+signed main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    int n; cin>>n;
-    while(n--) {
-        int m; cin>>m;
-        vector<ll> c(m);
-        for (auto& i : c) cin>>i;
-        sort(c.begin(),c.end());
+    int t; cin>>t;    
+    while(t--) {
+        int n; cin>>n;
         
     }
+    
     return 0;
 }
