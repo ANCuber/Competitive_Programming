@@ -1,22 +1,21 @@
+#pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 using namespace std;
 
-#define endl '\n'
 #define ll long long
+#define pii pair<int,int>
+#define p_q priority_queue
+#define endl '\n'
+#define pb push_back
 
-int n, m;
-
-int find_boss(int x, vector<int> &boss) {
-    if (x == boss[x]) return x;
-    return boss[x] = find_boss(boss[x],boss);
-}
-
-int main() {
-    cin>>n>>m;
-    vector<int> boss(n+1,0);
-    int a, b;
+signed main() {
+    ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+    int n, m; cin>>n>>m;
+    vector<set<int> > st(n+1);
     while(m--) {
-        cin>>a>>b;
+        int u, v; cin>>u>>v;
         
     }
+    
+    return 0;
 }
