@@ -12,22 +12,14 @@ signed main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     int a, b, c, d;
     cin>>a>>b>>c>>d;
-    int sum = 0, x=0,y=0,z=0;
-    sum += min(a,b)*100;
-    y = min(a,b);
-    a -= y, b -= y;
-    while(min(c,d)>0 && y>0) {
-        sum += 40;
-        y--, x++, z++;
-        c--, d--;
+    int x, y, z, ans = 0;
+    for (int i = 0; i <= min(a,b); ++i) {
+        if (ans < i*100+min(a-i,c)*80+min(b-i,d)*60) {
+            ans = i*100+min(a-i,c)*80+min(b-i,d)*60;
+            y = i, x = min(a-i,c), z = min(b-i,d);
+        }
     }
-    sum += min(a,c)*80;
-    x += min(a,c);
-    sum += min(b,d)*60;
-    z += min(b,d);
-    
     cout<<x<<' '<<y<<' '<<z<<endl;
-    cout<<sum<<endl;
-    
+    cout<<ans<<endl;
     return 0;
 }
