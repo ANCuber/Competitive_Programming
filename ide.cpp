@@ -1,21 +1,21 @@
-#pragma GCC optimize("Ofast")
-#include <bits/stdc++.h>
-using namespace std;
+struct Query {int id, k;};
 
-#define ll long long
-#define pii pair<int,int>
-#define p_q priority_queue
-#define endl '\n'
-#define pb push_back
+int ans[N];//the answer of the i-th query
+int check(int x);//the number of numbers <= x
 
-signed main() {
-    ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    for (int i = 1; i <= 2000; ++i) {
-        int cur = 18*i*i-2;
-        if ((int(sqrt(cur)))*(int(sqrt(cur))) == cur) {
-            cout<<'('<<int(sqrt(cur))<<','<<i<<')'<<endl;
-        }
+void solve(int l, int r, vector<Query> q) {
+    if (l == r) {
+        for (auto i : q) ans[i.id] = l;
+        return;
     }
-    
-    return 0;
+    int mid = (l+r)>>1;
+    int c = check(mid);
+    vector<Query> ql, qr;//part
+    for (auto i : q) {
+        if (i.k <= c) ql.push_back(i);
+        else qr.push_back(i);
+    }
+    solve(l,mid,ql), solve(mid+1,r,qr);
+    return;
 }
+
