@@ -41,7 +41,7 @@ void add(int v) {
 int main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     cin>>n>>Q;
-    k = sqrt(n);
+    k = n/sqrt(Q);
     a.resize(n+1);
     vector<query> q(n);
     for (int i = 1; i <= n; ++i) cin>>a[i];
@@ -64,3 +64,4 @@ int main() {
     }
     return 0;
 }
+
