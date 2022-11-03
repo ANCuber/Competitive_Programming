@@ -13,17 +13,11 @@ vector<int> ans(100005,0);
 
 struct node{
     int p, v, t = 0;
+    bool operator<(node b) {
+        if (t == b.t) return p < b.p;
+        return t < b.t;
+    }
 };
-
-bool cmp1(const node &a, const node &b) {
-    if (a.t == b.t) return a.p < b.p;
-    return a.t < b.t;
-}
-
-bool cmp2(const node &a, const node &b) {
-    if (a.t == b.t) return a.p > b.p;
-    return a.t < b.t;
-}
 
 struct BIT {
     vector<int> arr;
@@ -117,11 +111,10 @@ signed main() {
         scanf("%lld",&x);
         a[pos[x]].t = i;
     }
-    sort(a.begin(),a.end(),cmp1);
+    sort(a.begin(),a.end());
     solve1(0,n-1,a);
-    sort(a.begin(),a.end(),cmp2);
+    sort(a.begin(),a.end());
     solve2(0,n-1,a);
-    ans[0] >>= 1;
     for (int i = 1; i <= m; ++i) ans[i] += ans[i-1];
     for (int i = m; i > 0; --i) printf("%lld\n",ans[i]);
     return 0;

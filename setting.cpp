@@ -1,4 +1,4 @@
-#pragma GCC optimize("Ofast")
+#pragma GCC optimize("O3")
 #include <bits/stdc++.h>
 using namespace std;
 
