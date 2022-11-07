@@ -22,7 +22,6 @@ struct Query{
 } q[200005];
  
 signed main() {
-    //ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     scanf("%d%d",&n,&Q);
     k = n/sqrt(Q);
     for (int i = 1; i <= n; ++i) cin>>arr[i];
@@ -36,7 +35,7 @@ signed main() {
         int cl = q[i].ql, cr = q[i].qr;
         if (cl/k == cr/k) {
             mn = 1e9+5;
-            for (int i = cl; i <= cr; ++i) mn = min(mn,arr[i]);
+            for (int j = cl; j <= cr; ++j) mn = min(mn,arr[j]);
         } else if (cl/k == pre) {
             l = (cl/k)*k+k;
             while(r < cr) cmin = min(arr[++r],cmin);
@@ -44,9 +43,9 @@ signed main() {
             while(l > cl) mn = min(mn,arr[--l]);
         } else {
             l = (cl/k)*k+k, r = (cl/k)*k+k-1;
-            pre = (cl/k)*k;
+            pre = (cl/k);
             cmin = mn = 1e9+5;
-            while(r < cr) cmin = min(arr[++r],mn);
+            while(r < cr) cmin = min(arr[++r],cmin);
             mn = cmin;
             while(l > cl) mn = min(mn,arr[--l]);
         }
