@@ -1,46 +1,28 @@
-#pragma GCC optimize("Ofast,unroll-loops")
+#pragma GCC optimize("O3")
 #include <bits/stdc++.h>
+#include "lib1227.h"
+
 using namespace std;
 
-typedef long long ll;
-typedef unsigned long long ull;
-typedef pair<int,int> pii;
-typedef pair<long long,long long> pll;
+#define ll long long
+#define pii pair<int,int>
 #define p_q priority_queue
 #define endl '\n'
+#define pb push_back
 
-struct SEG{
-    ll arr[1e6+5];
-    
-} seg[2];
+vector<ll> d[2];
+int flag = 0, n;
 
-void init(int n, ll d[]) {
-    int sz = (n+1)>>1;
-    
+void init(int _n, ll D[]) {
+    n = _n;
+    d[0].pb(0);
+    d[1].pb(0);
 }
 
 void change(int a, int b, ll k) {
-    
+    a++,b++;
 }
 
-ll query(int p) {
+ll query(int c) {
     
-}
-
-int main() {
-    ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    int n, m, q, a, b, p;
-    cin>>n>>m>>q;
-    ll k, d[n+5];
-    for (int i = 0; i < n; ++i) cin>>d[i];
-    init(n,d);
-    while(m--) {
-        cin>>a>>b>>k;
-        change(a,b,k);
-    }
-    while(q--) {
-        cin>>p;
-        cout<<query(p)<<endl;
-    }
-    return 0;
 }
