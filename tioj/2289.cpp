@@ -10,20 +10,9 @@ using namespace std;
 
 int n, q;
 
-struct my {
-    int x, y;
-    bool operator<(my b) {
-        return x < b.x;
-    }
-};
-
 signed main() {
-    scanf("%d%d",&n,&q);
-    vector<my> arr(q);
-    for (auto&[x,y] : arr) {
-        cin>>x>>y;
-    }
-    sort(arr.begin(),arr.end());
+    scnaf("%d%d",&n,&q);
+    
     
     return 0;
 }
