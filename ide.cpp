@@ -1,21 +1,49 @@
-struct Query {int id, k;};
+//#pragma GCC optimize("O3")
+#include <bits/stdc++.h>
+using namespace std;
 
-int ans[N];//the answer of the i-th query
-int check(int x);//the number of numbers <= x
+#define ll long long
+#define endl '\n'
 
-void solve(int l, int r, vector<Query> q) {
-    if (l == r) {
-        for (auto i : q) ans[i.id] = l;
-        return;
+int n;
+double mid;
+ll k;
+multiset <ll> lst, rst;
+
+signed main() {
+    ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+    cout<<fixed<<setprecision(6);
+    cin>>n;
+    for (int i = 0; i < n; ++i) {
+        cin>>k;
+        if (!i) {
+            lst.insert(k);
+            mid = k;
+            cout<<mid<<endl;
+            continue;
+        }
+        
+        if (i&1) {//even
+            if (*lst.rbegin() <= k) {
+                rst.insert(k);
+            } else {
+                rst.insert(*lst.rbegin());
+                lst.erase(lst.find(*lst.rbegin()));
+                lst.insert(k);
+            }
+            mid = ((*lst.rbegin())+(*rst.begin()))/2.0;
+            cout<<mid<<endl;
+        } else {
+            if (*rst.begin() >= k) {
+                lst.insert(k);
+            } else {
+                lst.insert((*rst.begin()));
+                rst.erase(rst.find(*rst.begin()));
+                rst.insert(k);
+            }
+            mid = (*lst.rbegin());
+            cout<<mid<<endl;
+        }
     }
-    int mid = (l+r)>>1;
-    int c = check(mid);
-    vector<Query> ql, qr;//part
-    for (auto i : q) {
-        if (i.k <= c) ql.push_back(i);
-        else qr.push_back(i);
-    }
-    solve(l,mid,ql), solve(mid+1,r,qr);
-    return;
+    return 0;
 }
-
