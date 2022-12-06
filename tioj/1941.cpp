@@ -7,9 +7,8 @@ using namespace std;
 #define p_q priority_queue
 #define endl '\n'
 #define pb push_back
-#define mid ((l+r)>>1)
 
-int n, s, t, tmp, nx, cl;
+int n, s, t, l, r, mid, cur;
 
 struct BIT{
     vector<int> a;
@@ -32,27 +31,23 @@ struct BIT{
         }
         return ret;
     }
-} dp, lp, rp;
+} dp;
 
 signed main() {
     scanf("%d",&n);
-    dp.init(), lp.init(), rp.init();
-    rp.upd(1,n);
-    lp.upd(1,1);
+    dp.init(n);
     for (int i = 1; i <= n; ++i) {
         scanf("%d%d",&s,&t);
         s++,t++;
-        tmp = rp.val(t);
-        cl = lp.val(s);
-        rp.upd(cl,(s-1)-rp.val(cl)), rp.upd(s,rp.val(cl)-s+1);
-        lp.upd(s,), lp.upd();
-
-        if (tmp < n) nx = rp.val(tmp+1);
-        else nx = n;
-        
-        dp.upd(s,1), dp.upd(tmp+1,-1);
-        rp.upd(), rp.upd();
-        
+        l = t, r = n+1;
+        mid = (l+r)>>1;
+        cur = dp.val(t);
+        while(r-l > 1) {
+            if (dp.val(mid) <= cur) l = mid;
+            else r = mid;
+            mid = (l+r)>>1;
+        }
+        dp.upd(s,1), dp.upd(r,-1);
     }
     printf("%d\n",dp.val(n));
     return 0;
