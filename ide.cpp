@@ -1,49 +1,26 @@
-//#pragma GCC optimize("O3")
+#pragma GCC optimize("O3")
 #include <bits/stdc++.h>
 using namespace std;
 
 #define ll long long
+#define pii pair<int,int>
+#define p_q priority_queue
 #define endl '\n'
-
-int n;
-double mid;
-ll k;
-multiset <ll> lst, rst;
+#define pb push_back
 
 signed main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    cout<<fixed<<setprecision(6);
-    cin>>n;
-    for (int i = 0; i < n; ++i) {
-        cin>>k;
-        if (!i) {
-            lst.insert(k);
-            mid = k;
-            cout<<mid<<endl;
-            continue;
-        }
-        
-        if (i&1) {//even
-            if (*lst.rbegin() <= k) {
-                rst.insert(k);
-            } else {
-                rst.insert(*lst.rbegin());
-                lst.erase(lst.find(*lst.rbegin()));
-                lst.insert(k);
-            }
-            mid = ((*lst.rbegin())+(*rst.begin()))/2.0;
-            cout<<mid<<endl;
+    int n; cin>>n;    
+    while(n--) {
+        int a; cin>>a;
+        if (a <= 99999 || a >= 1000000) {
+            cout<<"No\n";
+        } else if ((a/1000)-(a%1000) > 0) {
+            cout<<"Yes\n";
         } else {
-            if (*rst.begin() >= k) {
-                lst.insert(k);
-            } else {
-                lst.insert((*rst.begin()));
-                rst.erase(rst.find(*rst.begin()));
-                rst.insert(k);
-            }
-            mid = (*lst.rbegin());
-            cout<<mid<<endl;
+            cout<<"No\n";
         }
     }
+    
     return 0;
 }

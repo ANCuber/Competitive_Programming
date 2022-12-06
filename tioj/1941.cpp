@@ -9,58 +9,51 @@ using namespace std;
 #define pb push_back
 #define mid ((l+r)>>1)
 
-int n, s, t;
-pii dp0, dp1;
+int n, s, t, tmp, nx, cl;
 
-struct SEGTREE{
+struct BIT{
     vector<int> a;
-    vector<int> id;
-    int sz = _n;
-    void setup(int l, int r, int p) {
-        if (l == r) {
-            a[p] = 0, id[p] = l;
-            return;
-        }
-        setup(l,mid,p<<1), setup(mid+1,r,p<<1|1);
-        a[p] = 0, id[p] = l;
-    }
+    int sz;
     void init(int _n) {
-        a.assign(_n<<2,0);
-        id.assign(_n<<2,0);
+        a.assign(_n+5,0);
         sz = _n;
-        setup(1,n,1);
     }
-    void upd(int l, int r, int p, int tar, int v) {
-        if (l == r) {
-            a[p] = v;
-            return;
-        }
-        if (tar <= mid) upd(l,mid,p<<1,tar,v);
-        else upd(mid+1,r,p<<1|1,tar,v);
-        if (a[p<<1] >= a[p<<1|1]) {
-            a[p] = a[p<<1];
-            id[p] = id[p<<1];
-        } else {
-            a[p] = a[p<<1|1];
-            id[p] = id[p<<1|1];
+    void upd(int p, int v) {
+        while(p <= sz) {
+            a[p] += v;
+            p += p&-p;
         }
     }
-    pii mxval(int l, int r, int p, int ql, int qr) {
-        
+    int val(int p) {
+        int ret = 0;
+        while(p > 0) {
+            ret += a[p];
+            p -= p&-p;
+        }
+        return ret;
     }
-} seg;
+} dp, lp, rp;
 
 signed main() {
-    ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    cin>>n;  
-    seg.init(n+2);
+    scanf("%d",&n);
+    dp.init(), lp.init(), rp.init();
+    rp.upd(1,n);
+    lp.upd(1,1);
     for (int i = 1; i <= n; ++i) {
-        cin>>s>>t;
-        s++, t++;
-        dp0 = seg.mxval(1,n,1,1,s-1);
-        dp1 = seg.mxval(1,n,1,1,t);
+        scanf("%d%d",&s,&t);
+        s++,t++;
+        tmp = rp.val(t);
+        cl = lp.val(s);
+        rp.upd(cl,(s-1)-rp.val(cl)), rp.upd(s,rp.val(cl)-s+1);
+        lp.upd(s,), lp.upd();
+
+        if (tmp < n) nx = rp.val(tmp+1);
+        else nx = n;
+        
+        dp.upd(s,1), dp.upd(tmp+1,-1);
+        rp.upd(), rp.upd();
         
     }
-    
+    printf("%d\n",dp.val(n));
     return 0;
 }
