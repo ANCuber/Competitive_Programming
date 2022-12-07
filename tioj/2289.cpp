@@ -11,7 +11,7 @@ using namespace std;
 int n, q;
 
 signed main() {
-    scnaf("%d%d",&n,&q);
+    scanf("%d%d",&n,&q);
     
     
     return 0;
