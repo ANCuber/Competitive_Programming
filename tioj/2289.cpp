@@ -8,23 +8,32 @@ using namespace std;
 #define endl '\n'
 #define pb push_back
 
-int n, q;
 
 struct Range{
     int l, r;
     bool operator<(Range b) {
-        if (l == b.l) return r < b.r;
-        return l < b.l;
+        if (r == b.r) return l < b.l;
+        return r < b.r;
     }
 };
 
 signed main() {
+    int n, q, ans = 0, i, lp = 1;
     scanf("%d%d",&n,&q);
-    vector<Range> rg(q);
-    for (int i = 0; i < q; ++i) {
-        scanf("%d%d",&rg[i].l,&rg[i].r);
-        
+    vector<Range> a(q);
+    vector<int> s(n+2,0);
+    for (i = 0; i < q; ++i) scanf("%d%d",&a[i].l,&a[i].r);
+    sort(a.begin(),a.end());
+    for (i = 0, lp = 1; i < q; ++i) {
+        while(lp <= a[i].r) {
+            s[lp] += s[lp-1];
+            lp++;
+        }
+        if (s[a[i].r]-s[a[i].l-1] == 0) {
+            s[a[i].r]++;
+            ans++;
+        }
     }
-    
+    printf("%d\n",ans);
     return 0;
 }
