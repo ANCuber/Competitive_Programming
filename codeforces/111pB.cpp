@@ -7,22 +7,19 @@ using namespace std;
 #define p_q priority_queue
 #define endl '\n'
 #define pb push_back
+
 #define int ll
 
 signed main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     int n; cin>>n;    
-    vector<int> c(n);
-    for (auto& i : c) cin>>i;
-    sort(c.begin(),c.end()); 
-    int s = 0;
-    for (auto i : c) {
-        if (i <= s+1) {
-            s += i;
-        } else {
-            break;
-        }
+    vector<int> v(n);
+    for (auto& i : v) cin>>i;
+    sort(v.begin(),v.end());
+    int ans = 0;
+    for (int i = 0; i < n/2; ++i) {
+        ans += v[i];
     }
-    cout<<s+1<<endl;
+    cout<<ans<<endl;
     return 0;
 }
