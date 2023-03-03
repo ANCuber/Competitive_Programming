@@ -29,9 +29,32 @@ signed main() {
         cnt[l]++;
         cnt[r+1]--;
     }
-    for (int i = 1; i <= c; ++i) cnt[i] += cnt[i-1];
+    for (int i = 1; i <= c+1; ++i) cnt[i] += cnt[i-1];
     int ans = *max_element(cnt.begin(),cnt.end());
     cout<<ans<<endl;
-    
+
+    vector<vector<int> > in(c+5), out(c+5);
+    for (int i = 0; i < n; ++i) {
+        in[a[i].first].pb(i);
+        out[a[i].second].pb(i);
+    }
+    //ss.clear();
+    unordered_set<int> ss;
+    vector<int> prt(n+1);
+    for (int i = 1; i <= ans; ++i) ss.insert(i);
+    for (int i = 1; i <= c; ++i) {
+        for (auto j : in[i]) {
+            prt[j] = *ss.begin();
+            ss.erase(ss.begin());
+        }
+        for (auto j : out[i]) {
+            ss.insert(prt[j]);
+        }
+    }
+    for (int i = 0; i < n; ++i) {
+        if (i) cout<<' ';
+        cout<<prt[i];
+    }
+    cout<<endl;
     return 0;
 }
