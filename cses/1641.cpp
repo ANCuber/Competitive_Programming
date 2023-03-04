@@ -11,19 +11,22 @@ int a[5005];
 int n, x;
  
 signed main() {
-    ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    cin>>n>>x;
-    unordered_map< int,pii > mp;
-    for (int i = 1; i <= n; ++i) cin>>a[i];
+    //ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+    scanf("%d%d",&n,&x);
+    map<int,int> mp;
+    for (int i = 1; i <= n; ++i) scanf("%d",&a[i]);
+    for (int i = 1; i <= n; ++i) mp[a[i]] = i;
     for (int i = 1; i <= n; ++i) {
-        if (mp.count(x-a[i])) {
-            cout<<mp[x-a[i]].first<<' '<<mp[x-a[i]].second<<' '<<i<<endl;
-            return 0;
-        }
-        for (int j = 1; j < i; ++j) {
-            if (a[i]+a[j] < x) mp[a[i]+a[j]] = {j,i};
+        for (int j = i+1; j <= n; ++j) {
+            if (a[i]+a[j] >= x) continue;
+            if (mp.count(x-a[i]-a[j])) {
+                if (mp[x-a[i]-a[j]] != i && mp[x-a[i]-a[j]] != j) {
+                    printf("%d %d %d\n",i,j,mp[x-a[i]-a[j]]);
+                    return 0;
+                }
+            }
         }
     }
-    cout<<"IMPOSSIBLE"<<endl;
+    printf("IMPOSSIBLE\n");
     return 0;
 }
