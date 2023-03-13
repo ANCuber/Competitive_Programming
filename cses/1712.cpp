@@ -10,11 +10,11 @@ using namespace std;
 
 const int mod = 1e9+7;
 
-int power(int a, int n) {
+int power(int a, int n, int m) {
     int ret = 1, base = a;
     while(n) {
-        if (n&1) ret = ret*base%mod;
-        base = base*base%mod;
+        if (n&1) ret = ret*base%m;
+        base = base*base%m;
         n >>= 1;
     }
     return ret;
@@ -26,7 +26,7 @@ signed main() {
     while(n--) {
         int a, b, c;
         cin>>a>>b>>c;
-        cout<<power(power(a,b),c)<endl;
+        cout<<power(a,power(b,c,mod-1),mod)<<endl;
     }
     
     return 0;
