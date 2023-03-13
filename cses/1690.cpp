@@ -12,6 +12,7 @@ const int mod = 1e9+7;
 int n, m;
 
 int solve(int u, int s, vector<vector<int> > &g, vector<vector<int> > &dp) {
+    if (!(s&1)) return 0;
     if (dp[u][s] >= 0) return dp[u][s];
     dp[u][s] = 0;
     for (auto v : g[u]) {
