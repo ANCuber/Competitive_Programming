@@ -8,11 +8,12 @@ using namespace std;
 
 int n;
 
-bool solve(vector<pair<ll,ll> > arr, ll gus) {
+bool solve(vector<pair<ll,ll> > &arr, ll gus) {
     ll sum = 0;
     for (int i = 1; i <= n; ++i) {
+        if (sum < 0) sum += arr[i-1].first-arr[i].first;
+        else sum = max(0ll,sum-(arr[i].first-arr[i-1].first));
         sum += arr[i].second-gus;
-        sum += arr[i-1].first-arr[i].first;
     }
     return sum >= 0;
 }
@@ -28,14 +29,12 @@ int main() {
             l = min(l,arr[i].second);
         }
         r++;
-        arr[0] = arr[1];
+        //arr[0] = arr[1];
+        //for (int i = 0; i <= 50; ++i) cout<<solve(arr,i)<<' ';
         ll gus = (l+r)>>1;
         while(r-l > 1) {
-            if (solve(arr,gus)) {
-                l = gus;
-            } else {
-                r = gus;
-            }
+            if (solve(arr,gus)) l = gus;
+            else r = gus;
             gus = (l+r)>>1;
         }
         cout<<l<<endl;
