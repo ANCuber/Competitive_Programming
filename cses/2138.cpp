@@ -1,4 +1,4 @@
-#pragma GCC optimize("O3")
+#pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -8,36 +8,40 @@ using namespace std;
 #define endl '\n'
 #define pb push_back
 
-int dfs(int cur, vector<int> &ans, vector<vector<int> > &g) {
-    int cnt = 0;
-    for (auto i : g[cur]) {
-        cnt += dfs(i,ans,g);
-    }
-    return ans[cur] = cnt+1;
-}
-
 signed main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    int n, m; cin>>n>>m;
-    vector<vector<int> > g(n+1);
-    vector<int> dg(n+1,0), ans(n+1,0);
-    set< pii > s;
-    int u, v;
+    int n, m; cin>>n>>m;    
+    vector<vector<int> > g(n+2);
+    vector<int> dg(n+2,0);
     while(m--) {
-        cin>>u>>v;
-        if (s.count({u,v})) continue;
-        s.insert({u,v});
-        g[u].pb(v);
-        dg[v]++;
+        int u, v; cin>>u>>v;
+        g[v].pb(u);
+        dg[u]++;
     }
+    
+    queue<int> q;
+    vector<bitset<50005> > dp(n+2);
     for (int i = 1; i <= n; ++i) {
-        if (!dg[i]) {
-            dfs(i,ans,g);
+        dp[i].reset();
+        dp[i][i] = 1;
+    }
+    
+    for (int i = 1; i <= n; ++i) if (!dg[i]) q.push(i);
+    
+    while(!q.empty()) {
+        int cur = q.front();
+        q.pop();
+        for (auto v : g[cur]) {
+            dp[v] |= dp[cur];
+            dg[v]--;
+            if (!dg[v]) {
+                q.push(v);
+            }
         }
     }
     for (int i = 1; i <= n; ++i) {
-        if (i != 1) cout<<' '; 
-        cout<<ans[i];
+        if (i-1) cout<<' ';
+        cout<<dp[i].count();
     }
     cout<<endl;
     return 0;
