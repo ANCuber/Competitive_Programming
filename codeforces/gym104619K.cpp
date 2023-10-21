@@ -1,4 +1,4 @@
-#pragma GCC optimize("Ofast")
+#pragma GCC optimize("Ofast","unroll-loops")
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -8,16 +8,16 @@ using namespace std;
 #define endl '\n'
 #define pb push_back
 
-const ll mod = 1e9+7;
-const ll inv = (mod+1)/2;
-
 signed main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    ll n; cin>>n;
-    ll cur = 1, ans = 0;
-    while(cur <= n) {
-        ans = (ans + (n/cur) * ((n/(n/cur))-cur+1)%mod * ((n/(n/cur)+cur)%mod)%mod * inv%mod)%mod;
-        cur = n/(n/cur)+1;
+    string s; cin>>s;    
+    string t = "kick";
+    int ans = 0;
+    for (int i = 0; i < s.size(); ++i) {
+        for (int j = 0; j < 4; ++j) {
+            if (s[i+j] != t[j]) break;
+            if (j == 3) ans++;
+        }
     }
     cout<<ans<<endl;
     return 0;

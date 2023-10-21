@@ -1,40 +1,40 @@
-#pragma GCC optimize("O3")
+#pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 using namespace std;
 
-#define ll long long
+#define int long long
 #define pii pair<int,int>
 #define p_q priority_queue
 #define endl '\n'
 #define pb push_back
 
-#define int unsigned ll
-
 const int mod = 1e9+7;
 
-int dp[1002][12][(1<<12)+5] = {0};
+int power(int x, int k) {
+    int a = 1, bs = x;
+    while(k) {
+        if (k&1) a = a*bs%mod;
+        bs = bs*bs%mod;
+        k >>= 1;
+    }
+    return a;
+}
 
 signed main() {
     ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    int m, n; cin>>m>>n;    
-    dp[0][m][0] = 1;
-    int mx = (1<<(m+1));
-    for (int i = 1; i <= n; ++i) {
-        for (int s = 0; s < mx; ++s) dp[i][0][s<<1] += dp[i-1][m][s]%mod;
-        for (int j = 1; j <= m; ++j) {
-            for (int s = 0; s < mx; ++s) {
-                int l = (1<<(j-1))&s, u = (1<<j)&s;
-                if (!l && !u) {
-                    dp[i][j][s^(1<<j)] += dp[i][j-1][s]%mod;
-                    dp[i][j][s^(1<<(j-1))] += dp[i][j-1][s]%mod;
-                } else if (!l && u) {
-                    dp[i][j][s^(1<<j)] += dp[i][j-1][s]%mod;
-                } else if (l && !u) {
-                    dp[i][j][s^(1<<(j-1))] += dp[i][j-1][s]%mod;
-                }
-            }
-        }
+    int n; cin>>n;    
+    int num = 1, sum = 1, prd = 1, tot = 1;
+    vector<pii> pri(n);
+    for (int i = 0; i < n; ++i) {
+        int x, k; cin>>x>>k;
+        pri[i] = {x,k};
+        num = num*(k+1)%mod;
+        sum = sum*((power(x,k+1)-1+mod)%mod*power(x-1,mod-2)%mod)%mod;
+        tot = tot*(k+1)%mod;
     }
-    cout<<dp[n][m][0]%mod<<endl;
+    for (int i = 0; i < n; ++i) {
+        
+    }
+    cout<<num<<' '<<sum<<' '<<prd<<endl;
     return 0;
 }
