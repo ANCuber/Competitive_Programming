@@ -9,8 +9,15 @@ using namespace std;
 #define pb push_back
 
 signed main() {
-    cin.tie(0)->sync_with_stdio(0);
-    
+    ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+    int N, M, T;    
+    seg.init(M);
+    cin>>N>>M>>T;
+    for (int i = 1; i <= N; ++i) {
+        for (int j = 1; j <= M; ++j) {
+            
+        }
+    }
     
     return 0;
 }

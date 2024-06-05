@@ -9,8 +9,8 @@ using namespace std;
 #define pb push_back
 
 signed main() {
-    cin.tie(0)->sync_with_stdio(0);
-    
-    
+    ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+    int A, B; cin>>A>>B;    
+    cout<<A+B<<endl;
     return 0;
 }
