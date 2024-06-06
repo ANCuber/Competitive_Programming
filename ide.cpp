@@ -1,5 +1,4 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 
 signed main() {
@@ -7,6 +6,6 @@ signed main() {
     int n; cin>>n;
     vector<int> a(n);
     for (auto &i : a) cin>>i;
-    cout<<a.back()<<endl;
+    cout<<a.back()<<'\n';
     return 0;
 }
