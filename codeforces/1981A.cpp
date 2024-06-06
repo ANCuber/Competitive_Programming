@@ -10,7 +10,15 @@ using namespace std;
 
 signed main() {
     cin.tie(0)->sync_with_stdio(0);
-        
-    
+    int t; cin>>t;
+    while(t--) {
+        int l, r; cin>>l>>r;
+        ll bs = 1, cnt = 0;
+        while(bs <= r) {
+            bs <<= 1;
+            cnt++;
+        }
+        cout<<cnt-1<<'\n';
+    }
     return 0;
 }

@@ -3,8 +3,6 @@
 using namespace std;
 
 #define ll long long
-#define pii pair<int,int>
-#define p_q priority_queue
 #define endl '\n'
 #define pb push_back
 
