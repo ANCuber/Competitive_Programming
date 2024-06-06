@@ -6,6 +6,7 @@ signed main() {
     int n; cin>>n;
     vector<int> a(n);
     for (auto &i : a) cin>>i;
+    sort(a.begin(),a.end());
     cout<<a.back()<<'\n';
     return 0;
 }
