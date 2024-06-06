@@ -1,9 +1,12 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 signed main() {
     ios::sync_with_stdio(0), cin.tie(0);
-    int a, b; cin>>a>>b;
-    cout<<a+b<<endl;
+    int n; cin>>n;
+    vector<int> a(n);
+    for (auto &i : a) cin>>i;
+    cout<<a.back()<<endl;
     return 0;
 }
