@@ -3,14 +3,12 @@
 using namespace std;
 
 #define ll long long
-#define pii pair<int,int>
-#define p_q priority_queue
-#define endl '\n'
 #define pb push_back
 
 signed main() {
     cin.tie(0)->sync_with_stdio(0);
-        
-    
+    int a, b; cin>>a>>b;
+    cout<<1+2<<'\n';
+    cout<<a+b<<'\n';
     return 0;
 }
