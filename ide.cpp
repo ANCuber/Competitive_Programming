@@ -1,23 +1,19 @@
-#pragma GCC optimize("Ofast","unroll-loops")
 #include <bits/stdc++.h>
 using namespace std;
 
-#define ll long long
-#define pb push_back 
 
-struct Book {
-    int title = 0;
-};
-
-signed main() {
+int main() {
     cin.tie(0)->sync_with_stdio(0);
-    int a, b; cin>>a>>b;
-    cout<<1+2<<'\n';
-    if (true) {
-        int b = 2;
-    } else {
-        int a = 3;
+    int R, C;
+    while(cin>>R>>C) {
+        vector<vector<int> > arr(R+2,vector<int>(C+2));
+        vector<vector<char> > ans(R+2,vector<int>(C+2));
+        for (int i = 1; i <= R; ++i) {
+            for (int j = 1 ;j <= C; ++j) {
+                cin>>arr[i][j];
+            }
+        }
     }
-    cout<<a+b<<'\n';
+     
     return 0;
 }
