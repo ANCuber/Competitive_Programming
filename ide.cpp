@@ -7,26 +7,16 @@ using namespace std;
 
 signed main() {
     cin.tie(0)->sync_with_stdio(0);
-    int n; cin>>n;
-    vector<int> arr(n);
-    for (int i = 0; i < n; ++i) cin>>arr[i];
-    sort(arr.begin(),arr.begin()+n);
-    int q; cin>>q;
-    while(q--) {
-        int k; cin>>k;
-        auto iter = lower_bound(arr.begin(),arr.end(),k);//<
-        iter--;
-        cout<<*iter<<endl;
-        iter = upper_bound(arr.begin(),arr.end(),k);//<= 
-        iter--;
-        cout<<*iter<<endl;
-
-        int L = -1, R = n;
-        while(R-L > 1) {//>=
-            int M = (L+R)/2;
-            if (arr[M] >= k) R = M;
-            else L = M;
-        }
-        cout<<arr[R]<<endl;
+    int n, x; cin>>n>>x;
+    map<int,int> mp;
+    mp[0] = 1;
+    int sum = 0, ans = 0;
+    while (n--) {
+        int a; cin>>a;
+        sum += a;
+        ans += mp[sum-x];
+        mp[sum]++;
     }
+    cout<<ans<<endl;
+    return 0;
 }
