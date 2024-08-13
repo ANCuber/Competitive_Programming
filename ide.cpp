@@ -5,35 +5,49 @@ using namespace std;
 #define ll long long
 #define pb push_back
 
-void MergeSort(vector<int> &a, int L, int R) {
-    if (L == R) return;
-    int M = (L+R)/2;
-    MergeSort(a,L,M), MergeSort(a,M+1,R);
-    int pl = L, pr = M+1;
-    vector<int> tmp;
-    while(pl <= M && pr <= R) {
-        if (a[pl] <= a[pr]) tmp.push_back(a[pl++]);
-        else tmp.push_back(a[pr++]);
-    }
-    while(pl <= M) tmp.push_back(a[pl++]);
-    while(pr <= R) tmp.push_back(a[pr++]);
-    for (int i = L; i <= R; ++i) a[i] = tmp[i-L];
-}
-
-void Solve(int n) {
-    vector<int> a(n+5);
-    for (int i = 1; i <= n; ++i) cin>>a[i];
-    MergeSort(a,1,n);
-    for (int i = 1; i <= n; ++i) {
-        if (i-1) cout<<' ';
-        cout<<a[i];
-    }
-    cout<<'\n';
-}
-
 signed main() {
     cin.tie(0)->sync_with_stdio(0);
-    int n;
-    while(cin>>n) Solve(n);
+    int n, m; cin>>n>>m;
+    vector<ll> s(n+2), t(n+2), tg(n+2,0);
+    for (int i = 1; i <= n; ++i) cin>>s[i];
+    for (int i = 1; i <= n; ++i) cin>>t[i];
+    deque<int> fight(n+1);
+    queue<int> won, lost;
+    for (int i = 1; i <= n; ++i) {
+        int idx; cin>>idx;
+        fight[idx] = i;
+    }
+    fight.pop_front();
+    while(fight.size() > 1) {
+        for (int i = 1; i <= n; ++i) cout<<s[i]<<' '; cout<<endl;
+        for (int i = 1; i <= n; ++i) cout<<t[i]<<' '; cout<<endl;
+
+        while(fight.size() >= 2) {
+            int u = fight[0], v = fight[1];
+            fight.pop_front(), fight.pop_front();
+            //cout<<"R:"<<s[u]*t[u]<<' '<<s[v]*t[v]<<endl;
+            if (s[u]*t[u] < s[v]*t[v]) swap(u,v);
+            won.push(u);
+            if (++tg[v] < m) lost.push(v);
+            ll ns = s[u]+s[v]*t[v]/(2*t[u]), nt = t[u]+s[v]*t[v]/(2*s[u]);
+            s[u] = ns, t[u] = nt;
+            s[v] += s[v]/2, t[v] += t[v]/2;
+        }
+        if (!fight.empty()) {
+            won.push(fight[0]);
+            fight.pop_front();
+        }
+        while(!won.empty()) {
+            fight.push_back(won.front());
+            won.pop();
+        }
+        while(!lost.empty()) {
+            fight.push_back(lost.front());
+            lost.pop();
+        }
+        for (int i = 1; i <= n; ++i) cout<<tg[i]<<' '; cout<<endl;
+
+    }
+    cout<<fight[0]<<'\n';
     return 0;
 }
