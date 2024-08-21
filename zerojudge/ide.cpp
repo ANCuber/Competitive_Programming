@@ -5,22 +5,23 @@ using namespace std;
 #define ll long long
 #define pb push_back
 
+ll ans = 0;
+
+void dfs(int f) {
+    int x; cin>>x;
+    if (x == 0) return;
+    if (f != -1) ans += abs(x-f);
+    
+    if (x%2 == 0) {
+        dfs(x); dfs(x);
+    } else {
+        dfs(x); dfs(x); dfs(x);
+    }
+}
+
 signed main() {
     cin.tie(0)->sync_with_stdio(0);
-    int n; cin>>n;
-    int arr[n+5];
-    for (int i = 1; i <= n; ++i) cin>>arr[i];
-    arr[0] = -1e9;
-    arr[n+1] = 1e9;
-    int ans = 0, cnt = 0;
-    for (int i =1; i <= n; ++i) {
-        if (arr[i] < arr[i-1]) {
-            cnt++;
-        } else {
-            cnt = 1;
-        }
-        ans = max(ans,cnt);
-    }
+    dfs(-1);
     cout<<ans<<'\n';
     return 0;
 }
