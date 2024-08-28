@@ -19,7 +19,6 @@ bool check(int x, int y, vector<vector<int> > &g) {
     return (sum%10) == g[x][y];
 }
 
-
 signed main() {
     cin.tie(0)->sync_with_stdio(0);
     cin>>n>>m;
@@ -35,8 +34,8 @@ signed main() {
             if (check(i,j,g)) ans.push_back({i,j});
         }
     }
-    sort(ans.begin(),ans.end());
     cout<<ans.size()<<'\n';
     for (auto [x,y] : ans) cout<<x<<' '<<y<<'\n';
     return 0;
 }
+
