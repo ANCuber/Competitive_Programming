@@ -21,7 +21,7 @@ int main() {
     vector<long long> arr(n+5); arr[1]~arr[n];
     sort(arr.begin()+1,arr.begin()+1+n,cmp);
     
-    cin>>n
+    cin>>n;
         vector <int> arr(n);
         for (int i = 0; i < n;++i) {
             cin>>arr[i];
