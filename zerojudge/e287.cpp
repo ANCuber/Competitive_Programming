@@ -35,12 +35,11 @@ signed main() {
         }
     }
     //cout<<"p"<<endl; return 0;
-    int ans = 0;
-    while(true) {
+    int ans = 0, tmp = 1;
+    while(tmp >= 0) {
         ans += g[cx][cy];
         g[cx][cy] = -1;
-        int tmp = NextStep(cx,cy,g);
-        if (tmp == -1) break;
+        tmp = NextStep(cx,cy,g);
         cx += dx[tmp], cy += dy[tmp];
     }
     cout<<ans<<'\n';
