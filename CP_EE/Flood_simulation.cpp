@@ -95,6 +95,6 @@ signed main() {
         }
         if (flg) break;
     }
-    cout<<"It takes "<<hrs<<" hour(s) until all water level (excluding river) is less than 1cm higher than the elevation"<<endl;
+    cout<<"It takes "<<hrs<<" hour(s) until all water level (excluding river) is less than 1cm higher than the elevation."<<endl;
     return 0;
 }
