@@ -89,7 +89,7 @@ void Decode(int codeword[5], int message[3]) {
 }
 
 int main() {
-    srand(time(NULL));
+    srand(time(NULL));//added by me
     cout << "Reed Solomon Example" << endl;
     int message[3];
     message[0] = rand() % 256;
