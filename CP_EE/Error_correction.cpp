@@ -69,18 +69,18 @@ void Encode2(int message[3], int codeword[5]) {
 }
 
 void Decode(int codeword[5], int message[3]) {
-    int cur[3];
     int tmp[5];
-    int cnt = 0;
     for (int i = 0; i < 256; ++i) {
         for (int j = 0; j < 256; ++j) {
             for (int k = 0; k < 256; ++k) {
-                cnt = 0;
-                cur[0] = i, cur[1] = j, cur[2] = k;
+                int cnt = 0;
+                int cur[3] = {i,j,k};
                 Encode(cur,tmp);
-                for (int l = 0; l < 5; ++l) cnt += (tmp[l] == codeword[l]);
+                for (int l = 0; l < 5; ++l) cnt += (tmp[l] != codeword[l]);
                 if (cnt <= 1) {
-                    message = cur;
+                    message[0] = i;
+                    message[1] = j;
+                    message[2] = k;
                     return;
                 }
             }
@@ -89,6 +89,7 @@ void Decode(int codeword[5], int message[3]) {
 }
 
 int main() {
+    srand(time(NULL));
     cout << "Reed Solomon Example" << endl;
     int message[3];
     message[0] = rand() % 256;
