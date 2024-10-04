@@ -1,16 +1,10 @@
-#include <iostream>
-#include <vector>
-#include <iomanip>
-#include <algorithm>
-#include <cmath>
+#pragma GCC optimize("Ofast","unroll-loops")
+#include <bits/stdc++.h>
 using namespace std;
 
-const int grid = 50;
-const int rain_amount = 10;
-int hours_of_rain;
-const float threshold = 1.0;
+#define double float
 
-float elevation[grid][grid] = {
+float Elevation[50][50] = {
 {0,0,0,0,1,1,1,1,1,2,2,2,2,2,2,3,3,4,4,3,3,3,4,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1},
 {0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,3,3,4,4,3,3,3,3,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1},
 {0,0,0,0,0,1,1,1,1,1,1,1,2,2,2,2,3,3,3,3,3,3,2,2,2,3,3,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -63,109 +57,43 @@ float elevation[grid][grid] = {
 {2,2,2,3,3,3,3,3,3,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3},
 };
 
-float waterlevel[grid][grid] = {0};
+int dx[4] = {0,0,1,-1};
+int dy[4] = {1,-1,0,0};
 
-void WaterLevelFunction() {
-    for (int i = 0; i < grid; i++) {
-        for (int j = 0; j < grid; j++) {
-            waterlevel[i][j] = 0;
+signed main() {
+    cin.tie(0)->sync_with_stdio(0);
+    cout<<"Please enter how many hour(s) will the rain last:"<<endl;
+    int prd; cin>>prd;
+    vector<vector<double> > wtr(55, vector<double>(55,0)), dw(55,vector<double>(55,0)), ele(55,vector<double>(55,2e9));
+    for (int i = 1; i <= 50; ++i) for (int j = 1; j <= 50; ++j) ele[i][j] = Elevation[i-1][j-1];
+    ele[0][0] = ele[0][1] = ele[0][2] = ele[0][3] = ele[0][4] = ele[1][0] = ele[2][0] = ele[3][0] = ele[4][0] = 0;
+    int hrs = 0, flg = 0;
+    while(!flg) {
+        if (++hrs <= prd) {
+            for (int i = 1; i <= 50; ++i) {
+                for (int j = 1; j <= 50; ++j) {
+                    wtr[i][j] += 1.0;
+                }
+            }
         }
-    }
-}
-
-bool AllBelowThreshold() {
-    for (int i = 0; i < grid; i++) {
-        for (int j = 0; j < grid; j++) {
-            if (elevation[i][j] != 0 && waterlevel[i][j] >= elevation[i][j] * 10 + threshold) {
-                return false;
+        for (int i = 1; i <= 50; ++i) {
+            for (int j = 1; j <= 50; ++j) {
+                for (int k = 0; k < 4; ++k) {
+                    double cur = max(0.0,min(wtr[i][j]+ele[i][j]-wtr[i+dx[k]][j+dy[k]]-ele[i+dx[k]][j+dy[k]],wtr[i][j]))/4.0;
+                    dw[i][j] -= cur;
+                    dw[i+dx[k]][j+dy[k]] += cur;
+                }
+            }
+        }
+        flg = 1;
+        for (int i = 1; i <= 50; ++i) {
+            for (int j = 1; j <= 50; ++j) {
+                wtr[i][j] += dw[i][j];
+                dw[i][j] = 0;
+                if (Elevation[i-1][j-1] && wtr[i][j] >= 0.1) flg = 0;
             }
         }
     }
-    return true;
-}
-
-float chart[grid][grid] = {0};
-
-void flowwater() {
-    //cin >> hours_of_rain;
-
-    for (int h = 0; h < hours_of_rain; h++) {
-        for (int i = 0; i < grid; i++) {
-            for (int j = 0; j < grid; j++) {
-                waterlevel[i][j] += rain_amount ;
-                chart[i][j] = waterlevel[i][j];
-                int i1 = i - 1;
-                int i2 = i + 1;
-                int j1 = j - 1;
-                int j2 = j + 1;
-
-                if (i1 >= 0) {
-                    float transfer = min((waterlevel[i][j] - waterlevel[i1][j]) / 4, (waterlevel[i][j] - elevation[i][j]) / 4);
-                    chart[i1][j] += transfer;
-                    chart[i][j] -= transfer;
-                }
-                else if (elevation[i][j] == 0){
-                    chart[i][j] -= waterlevel[i][j] / 4;
-                }
-
-                if (i2 <= 49){
-                    float transfer = min((waterlevel[i][j] - waterlevel[i2][j]) / 4, (waterlevel[i][j] - elevation[i][j]) / 4);
-                    chart[i2][j] += transfer;
-                    chart[i][j] -= transfer;
-                }
-                else if (elevation[i][j] == 0){
-                    chart[i][j] -= waterlevel[i][j] / 4;
-                }
-
-                if (j1 >= 0) {
-                    float transfer = min((waterlevel[i][j] - waterlevel[i][j1]) / 4, (waterlevel[i][j] - elevation[i][j]) / 4);
-                    chart[i][j1] += transfer;
-                    chart[i][j] -= transfer;
-                }
-                else if (elevation[i][j] == 0){
-                    chart[i][j] -= waterlevel[i][j] / 4;
-                }
-
-                if (j2 <= 49){
-                    float transfer = min((waterlevel[i][j] - waterlevel[i][j2]) / 4, (waterlevel[i][j] - elevation[i][j]) / 4);
-                    chart[i][j2] += transfer;
-                    chart[i][j] -= transfer;
-                }
-                else if (elevation[i][j] == 0){
-                    chart[i][j] -= waterlevel[i][j] / 4;
-                }
-            }
-        } 
-    }
-}
-    
-int main() {
-    int hours = 0;
-    cout << "Expected raining hours: " ;
-    cin >> hours_of_rain;
-    WaterLevelFunction();
-  
-    while (!AllBelowThreshold()) {
-        flowwater();
-        hours++;
-    }
-    if (AllBelowThreshold() == true){
-        cout << "Time taken for all water levels to drop below 1cm above elevation: " << hours << " hours." << endl;
-    }
+    cout<<"It takes "<<hrs<<" hour(s) until all water level (excluding river) is less than 1cm higher than the elevation."<<endl;
     return 0;
 }
-
-/*int main() {
-    int hours = 0;
-    cout << "Expected raining hours: " ;
-    WaterLevelFunction();
-    flowwater();
-    for (int i = 0; i < grid; i++) {
-        for (int j = 0; j < grid; j++) {
-            cout << setw(2) << waterlevel[i][j]<< "||";
-            cout << setw(2) << chart[i][j] << "|";
-        }
-        cout << endl;
-    }
-    return 0;
-}*/
