@@ -47,7 +47,6 @@ int GF256add(int a, int b) {
     if (a == 0) { return b; }
     return GF256mul(a, GF256add1(b - a));
 }
-
 void insert_noise(int codeword[5]) {
     int id = (rand() ^ rand()) % 5, mdf = (rand() ^ rand()) % 256;
     codeword[id] = mdf;

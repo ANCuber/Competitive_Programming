@@ -7,7 +7,8 @@ using namespace std;
 
 signed main() {
     cin.tie(0)->sync_with_stdio(0);
-    int a, b; cin>>a>>b;
-    cout<<__gcd(a,b)<<endl;
+    int a; cin>>a;
+    if (a) cout<<"1";
+    if (!a) cout<<"0";
     return 0;
 }
