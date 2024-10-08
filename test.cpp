@@ -8,6 +8,6 @@ using namespace std;
 signed main() {
     cin.tie(0)->sync_with_stdio(0);
     int a, b; cin>>a>>b;
-    cout<<a+b<<endl;
+    cout<<__gcd(a,b)<<endl;
     return 0;
 }
