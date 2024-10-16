@@ -7,7 +7,8 @@ using namespace std;
 
 signed main() {
     cin.tie(0)->sync_with_stdio(0);
-    int a, b; cin>>a>>b;
-    cout<<__gcd(a,b)<<endl;
+    string s = "";
+    char a = 'a', b = 'b';
+    cout<<string(a)+string(b)<<endl;
     return 0;
 }

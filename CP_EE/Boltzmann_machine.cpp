@@ -140,8 +140,8 @@ void WatchImage(int Image[10][10]) {
         for (int j = 0; j < 10; ++j) {
             for (int k = 0; k < 10; ++k) {
                 for (int l = 0; l < 10; ++l) {
-                    if (Brain[i][j] == Brain[k][l] && Image[i][j] != Image[k][l]) LinkWeights[i][j][k][l] -= 0.01;
-                    if (Brain[i][j] != Brain[k][l] && Image[i][j] == Image[k][l]) LinkWeights[i][j][k][l] += 0.01;
+                    if (Brain[i][j] == Brain[k][l] && Image[i][j] != Image[k][l]) LinkWeights[i][j][k][l] -= 0.005;
+                    if (Brain[i][j] != Brain[k][l] && Image[i][j] == Image[k][l]) LinkWeights[i][j][k][l] += 0.005;
                 }
             }
         }
@@ -187,7 +187,7 @@ int main() {
         */
         for (int i = 0; i < 10; ++i) {
             WatchImage(DigitNumbers[i]);
-            DayDream(1000);
+            DayDream(5000);
         }
         // Take a MRI scan of the brain
         for (int y = 0; y < 10; y++) {
