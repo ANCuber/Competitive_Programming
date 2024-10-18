@@ -7,8 +7,6 @@ using namespace std;
 
 signed main() {
     cin.tie(0)->sync_with_stdio(0);
-    string s = "";
-    char a = 'a', b = 'b';
-    cout<<string(a)+string(b)<<endl;
+
     return 0;
 }

@@ -5,6 +5,10 @@
 !*.* 
 !*/
 
+test
+test.cpp
+.vscode/
+.DS_Store
+
 *.exe
 *.out
-*/.vscode
