@@ -9,6 +9,7 @@ test
 test.cpp
 .vscode/
 .DS_Store
+tempCodeRunnerFile.*
 
 *.exe
 *.out
